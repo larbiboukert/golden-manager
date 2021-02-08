@@ -6,7 +6,7 @@
         public string Reference { get; set; }
         public string Nom { get; set; }
         public string Telephone { get; set; }
-        public string Willaya { get; set; }
         public string Ville { get; set; }
+        public string Willaya { get; set; }
     }
 }
