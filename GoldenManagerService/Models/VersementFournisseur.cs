@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GoldenManagerService.Models
+﻿namespace GoldenManagerService.Models
 {
     public class VersementFournisseur : Versement
     {

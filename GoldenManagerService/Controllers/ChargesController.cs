@@ -47,7 +47,7 @@ namespace GoldenManagerService.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCharge(int id, Charge charge)
         {
-            if (id != charge.Id)
+            if (id != charge.ID)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace GoldenManagerService.Controllers
             _context.Charges.Add(charge);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharge", new { id = charge.Id }, charge);
+            return CreatedAtAction("GetCharge", new { id = charge.ID }, charge);
         }
 
         // DELETE: api/Charges/5
@@ -102,7 +102,7 @@ namespace GoldenManagerService.Controllers
 
         private bool ChargeExists(int id)
         {
-            return _context.Charges.Any(e => e.Id == id);
+            return _context.Charges.Any(e => e.ID == id);
         }
     }
 }

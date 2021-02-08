@@ -3,6 +3,7 @@
     public class PvLaboratoire
     {
         public int ID { get; set; }
+        public string Reference => $"PVLABORATOIRE_{ID}";
         public float OrVerse { get; set; }
         public float Fonte { get; set; }
         public float Titre { get; set; }

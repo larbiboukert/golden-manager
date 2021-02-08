@@ -2,10 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
   Table,
   Container,
   Row,
@@ -70,7 +66,8 @@ const Index = () => {
                     ) : (
                       itemsList.map((row) => (
                         <tr key={row.id}>
-                          <th className="nav-item"
+                          <th
+                            className="nav-item"
                             scope="row"
                             onClick={(e) => router.push(`/articles/${row.id}`)}
                           >

@@ -39,7 +39,7 @@ function Sidebar(props) {
     setCollapseOpen(false);
   };
   // creates the links that appear in the left menu / Sidebar
-  const sideBarLinks = ["articles", "charges", "clients", "fournisseurs"];
+  const sideBarLinks = ["achats", "ventes", "articles", "clients", "fournisseurs", "charges"];
   const createLinks = () =>
     sideBarLinks.map((entity, key) => (
       <NavItem key={key} active={activeRoute(`/${entity}`)}>

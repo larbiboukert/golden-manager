@@ -18,13 +18,14 @@ const New = () => {
   const router = useRouter();
 
   const [state, setState] = useState({
-    reference: "",
-    date: "",
-    designation: "",
+    nom: "",
+    telephone: "",
+    ville: "",
+    willaya: "",
   });
   console.log(state);
   const [errorShown, setErrorShown] = useState(false);
-  
+
   return (
     <>
       <Header brandText={"Fournisseurs"} />
@@ -38,16 +39,6 @@ const New = () => {
                 <h3 className="capitalize mb-0">{"Ajouter un fournisseur"}</h3>
               </CardHeader>
               <Form>
-                <FormGroup className="mx-4">
-                  <label className=" form-control-label">Reference</label>
-                  <Input
-                    value={state.reference}
-                    type="text"
-                    onChange={(e) =>
-                      setState({ ...state, reference: e.target.value })
-                    }
-                  ></Input>
-                </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Nom</label>
                   <Input
@@ -94,7 +85,10 @@ const New = () => {
                     type="button"
                     onClick={() => {
                       axios
-                        .post("/api/Fournisseurs", objectValuesToUpperCase(state))
+                        .post(
+                          "/api/Fournisseurs",
+                          objectValuesToUpperCase(state)
+                        )
                         .then((res) => router.push("/fournisseurs"))
                         .catch((err) => setErrorShown(true));
                     }}

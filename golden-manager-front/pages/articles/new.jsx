@@ -18,7 +18,6 @@ const New = () => {
   const router = useRouter();
 
   const [state, setState] = useState({
-    reference: "",
     nom: "",
     nomReference: "",
     famille: "",
@@ -40,16 +39,6 @@ const New = () => {
                 <h3 className="capitalize mb-0">{"Ajouter un article"}</h3>
               </CardHeader>
               <Form>
-                <FormGroup className="mx-4">
-                  <label className=" form-control-label">Reference</label>
-                  <Input
-                    value={state.reference}
-                    type="text"
-                    onChange={(e) =>
-                      setState({ ...state, reference: e.target.value })
-                    }
-                  ></Input>
-                </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Nom</label>
                   <Input
