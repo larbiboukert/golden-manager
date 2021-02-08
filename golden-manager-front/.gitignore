@@ -1,0 +1,6 @@
+/build
+/node_modules
+yarn.lock
+/build
+/.next
+.env.local

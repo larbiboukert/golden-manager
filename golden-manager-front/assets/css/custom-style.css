@@ -1,0 +1,29 @@
+.nav-item:hover {
+  cursor: pointer;
+}
+.table-responsive {
+  height: 100%;
+}
+.table th,
+.table td {
+  padding: unset;
+}
+.list {
+  height: 70vh;
+}
+
+.navbar-brand-img {
+  max-height: unset !important;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.error {
+  color: red;
+}
+
+td {
+  padding: 8px 24px!important;
+}
