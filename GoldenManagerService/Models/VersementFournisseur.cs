@@ -1,7 +1,9 @@
-﻿namespace GoldenManagerService.Models
+﻿using System.Collections.Generic;
+
+namespace GoldenManagerService.Models
 {
     public class VersementFournisseur : Versement
     {
-        public Achat Achat { get; set; }
+        public Fournisseur Fournisseur { get; set; }
     }
 }

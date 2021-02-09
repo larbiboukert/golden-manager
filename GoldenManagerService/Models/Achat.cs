@@ -1,4 +1,6 @@
-﻿namespace GoldenManagerService.Models
+﻿using System.Collections.Generic;
+
+namespace GoldenManagerService.Models
 {
     public class Achat : Operation
     {

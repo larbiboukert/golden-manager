@@ -7,7 +7,6 @@ namespace GoldenManagerService.Models
         public int ID { get; set; }
         public string Reference => $"{this.GetType().Name.ToUpper()}_{ID}_{Date.Date}";
         public DateTime Date { get; set; }
-        public float VersementOr { get; set; }
         public decimal VersementArgent { get; set; }
     }
 }

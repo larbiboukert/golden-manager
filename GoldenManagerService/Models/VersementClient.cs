@@ -2,6 +2,6 @@
 {
     public class VersementClient : Versement
     {
-        public Vente Vente { get; set; }
+        public Client Client { get; set; }
     }
 }
