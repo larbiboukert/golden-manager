@@ -12,47 +12,47 @@ namespace GoldenManagerService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FournisseursController : ControllerBase
+    public class OperationsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public FournisseursController(ApplicationDbContext context)
+        public OperationsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Fournisseurs
+        // GET: api/Operations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Fournisseur>>> GetFournisseurs()
+        public async Task<ActionResult<IEnumerable<Operation>>> GetOperations()
         {
-            return await _context.Fournisseurs.ToListAsync();
+            return await _context.Operations.ToListAsync();
         }
 
-        // GET: api/Fournisseurs/5
+        // GET: api/Operations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Fournisseur>> GetFournisseur(int id)
+        public async Task<ActionResult<Operation>> GetOperation(int id)
         {
-            var fournisseur = await _context.Fournisseurs.FindAsync(id);
+            var operation = await _context.Operations.FindAsync(id);
 
-            if (fournisseur == null)
+            if (operation == null)
             {
                 return NotFound();
             }
 
-            return fournisseur;
+            return operation;
         }
 
-        // PUT: api/Fournisseurs/5
+        // PUT: api/Operations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFournisseur(int id, Fournisseur fournisseur)
+        public async Task<IActionResult> PutOperation(int id, Operation operation)
         {
-            if (id != fournisseur.ID)
+            if (id != operation.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(fournisseur).State = EntityState.Modified;
+            _context.Entry(operation).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace GoldenManagerService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FournisseurExists(id))
+                if (!OperationExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace GoldenManagerService.Controllers
             return NoContent();
         }
 
-        // POST: api/Fournisseurs
+        // POST: api/Operations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Fournisseur>> PostFournisseur(Fournisseur fournisseur)
+        public async Task<ActionResult<Operation>> PostOperation(Operation operation)
         {
-            _context.Fournisseurs.Add(fournisseur);
+            _context.Operations.Add(operation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFournisseur", new { id = fournisseur.ID }, fournisseur);
+            return CreatedAtAction("GetOperation", new { id = operation.ID }, operation);
         }
 
-        // DELETE: api/Fournisseurs/5
+        // DELETE: api/Operations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFournisseur(int id)
+        public async Task<IActionResult> DeleteOperation(int id)
         {
-            var fournisseur = await _context.Fournisseurs.FindAsync(id);
-            if (fournisseur == null)
+            var operation = await _context.Operations.FindAsync(id);
+            if (operation == null)
             {
                 return NotFound();
             }
 
-            _context.Fournisseurs.Remove(fournisseur);
+            _context.Operations.Remove(operation);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FournisseurExists(int id)
+        private bool OperationExists(int id)
         {
-            return _context.Fournisseurs.Any(e => e.ID == id);
+            return _context.Operations.Any(e => e.ID == id);
         }
     }
 }

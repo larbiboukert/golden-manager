@@ -18,9 +18,9 @@ const New = () => {
   const router = useRouter();
 
   const [state, setState] = useState({
-    nom: "",
-    nomReference: "",
-    famille: "",
+    name: "",
+    label: "",
+    family: "",
     designation: "",
   });
 
@@ -42,30 +42,30 @@ const New = () => {
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Nom</label>
                   <Input
-                    value={state.nom}
+                    value={state.name}
                     type="text"
                     onChange={(e) =>
-                      setState({ ...state, nom: e.target.value })
+                      setState({ ...state, name: e.target.value })
                     }
                   ></Input>
                 </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Nom Reference</label>
                   <Input
-                    value={state.nomReference}
+                    value={state.label}
                     type="text"
                     onChange={(e) =>
-                      setState({ ...state, nomReference: e.target.value })
+                      setState({ ...state, label: e.target.value })
                     }
                   ></Input>
                 </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Famille</label>
                   <Input
-                    value={state.famille}
+                    value={state.family}
                     type="text"
                     onChange={(e) =>
-                      setState({ ...state, famille: e.target.value })
+                      setState({ ...state, family: e.target.value })
                     }
                   ></Input>
                 </FormGroup>

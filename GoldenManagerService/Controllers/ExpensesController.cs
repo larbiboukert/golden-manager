@@ -12,47 +12,47 @@ namespace GoldenManagerService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChargesController : ControllerBase
+    public class ExpensesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ChargesController(ApplicationDbContext context)
+        public ExpensesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Charges
+        // GET: api/Expenses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Charge>>> GetCharges()
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
         {
-            return await _context.Charges.ToListAsync();
+            return await _context.Expenses.ToListAsync();
         }
 
-        // GET: api/Charges/5
+        // GET: api/Expenses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Charge>> GetCharge(int id)
+        public async Task<ActionResult<Expense>> GetExpense(int id)
         {
-            var charge = await _context.Charges.FindAsync(id);
+            var expense = await _context.Expenses.FindAsync(id);
 
-            if (charge == null)
+            if (expense == null)
             {
                 return NotFound();
             }
 
-            return charge;
+            return expense;
         }
 
-        // PUT: api/Charges/5
+        // PUT: api/Expenses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharge(int id, Charge charge)
+        public async Task<IActionResult> PutExpense(int id, Expense expense)
         {
-            if (id != charge.ID)
+            if (id != expense.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(charge).State = EntityState.Modified;
+            _context.Entry(expense).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace GoldenManagerService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChargeExists(id))
+                if (!ExpenseExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace GoldenManagerService.Controllers
             return NoContent();
         }
 
-        // POST: api/Charges
+        // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Charge>> PostCharge(Charge charge)
+        public async Task<ActionResult<Expense>> PostExpense(Expense expense)
         {
-            _context.Charges.Add(charge);
+            _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharge", new { id = charge.ID }, charge);
+            return CreatedAtAction("GetExpense", new { id = expense.ID }, expense);
         }
 
-        // DELETE: api/Charges/5
+        // DELETE: api/Expenses/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCharge(int id)
+        public async Task<IActionResult> DeleteExpense(int id)
         {
-            var charge = await _context.Charges.FindAsync(id);
-            if (charge == null)
+            var expense = await _context.Expenses.FindAsync(id);
+            if (expense == null)
             {
                 return NotFound();
             }
 
-            _context.Charges.Remove(charge);
+            _context.Expenses.Remove(expense);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ChargeExists(int id)
+        private bool ExpenseExists(int id)
         {
-            return _context.Charges.Any(e => e.ID == id);
+            return _context.Expenses.Any(e => e.ID == id);
         }
     }
 }

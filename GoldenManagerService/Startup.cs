@@ -34,7 +34,10 @@ namespace GoldenManagerService
             services.AddCors(options =>
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                    builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
                 }));
         }
 

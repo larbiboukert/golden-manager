@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -9,26 +9,33 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import Header from "../../components/Header/Header";
+import Header from "../../../components/Header/Header";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { objectValuesToUpperCase } from "../../utils/functions";
+import { objectValuesToUpperCase } from "../../../utils/functions";
 
 const New = () => {
   const router = useRouter();
+  const { stakeholderType } = router.query;
 
   const [state, setState] = useState({
-    nom: "",
-    telephone: "",
-    ville: "",
-    willaya: "",
+    name: "",
+    phoneNumber: "",
+    city: "",
+    state: "",
   });
-  console.log(state);
+  useEffect(() => {
+    setState({
+      ...state,
+      type: stakeholderType === "fournisseur" ? 0 : stakeholderType === "client" ? 1 : 2,
+    });
+  }, [stakeholderType]);
+
   const [errorShown, setErrorShown] = useState(false);
 
   return (
     <>
-      <Header brandText={"Clients"} />
+      <Header brandText={stakeholderType} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -36,46 +43,46 @@ const New = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="capitalize mb-0">{"Ajouter un client"}</h3>
+                <h3 className="capitalize mb-0">{`Ajouter un ${stakeholderType}`}</h3>
               </CardHeader>
               <Form>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Nom</label>
                   <Input
-                    value={state.nom}
+                    value={state.name}
                     type="text"
                     onChange={(e) =>
-                      setState({ ...state, nom: e.target.value })
+                      setState({ ...state, name: e.target.value })
                     }
                   ></Input>
                 </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Telephone</label>
                   <Input
-                    value={state.telephone}
+                    value={state.phoneNumber}
                     type="tel"
                     onChange={(e) =>
-                      setState({ ...state, telephone: e.target.value })
+                      setState({ ...state, phoneNumber: e.target.value })
                     }
                   ></Input>
                 </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Ville</label>
                   <Input
-                    value={state.ville}
+                    value={state.city}
                     type="text"
                     onChange={(e) =>
-                      setState({ ...state, ville: e.target.value })
+                      setState({ ...state, city: e.target.value })
                     }
                   ></Input>
                 </FormGroup>
                 <FormGroup className="mx-4">
                   <label className=" form-control-label">Willaya</label>
                   <Input
-                    value={state.willaya}
+                    value={state.state}
                     type="text"
                     onChange={(e) =>
-                      setState({ ...state, willaya: e.target.value })
+                      setState({ ...state, state: e.target.value })
                     }
                   ></Input>
                 </FormGroup>
@@ -85,8 +92,11 @@ const New = () => {
                     type="button"
                     onClick={() => {
                       axios
-                        .post("/api/Clients", objectValuesToUpperCase(state))
-                        .then((res) => router.push("/clients"))
+                        .post(
+                          "/api/Stakeholders",
+                          objectValuesToUpperCase(state)
+                        )
+                        .then((res) => router.push(`/stakeholders/${stakeholderType}`))
                         .catch((err) => setErrorShown(true));
                     }}
                   >

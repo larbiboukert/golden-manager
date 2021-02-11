@@ -13,17 +13,24 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { objectValuesToUpperCase } from "../../utils/functions";
+import { fetcher } from "../../../../../utils/api";
+import useSWR from "swr";
 
 const New = () => {
   const router = useRouter();
+  const { stakeholderId, transaction } = router.query;
 
   const [state, setState] = useState({
     date: "",
-    fournisseur: "",
+    money: 0.0,
     produits: [],
-    versement: { or: 0.0, argent: 0.0 },
   });
+  useEffect(() => setState({ ...state, stakeholder: stakeholderId }), [
+    stakeholderId,
+  ]);console.log(stakeholderId)
+  useEffect(() => setState({ ...state, type: transaction }), [transaction]);
+
+  const articles = useSWR("/api/Articles", fetcher).data;
   const [newProduct, setNewProduct] = useState({
     article: "",
     grammes: 0.0,
@@ -31,14 +38,15 @@ const New = () => {
   });
   useEffect(() => {
     setNewProduct({
-      article: "",
+      article: articles ? articles[0].id : "",
       grammes: 0.0,
       prixUnitaire: 0.0,
     });
-  }, [state.produits]);
-  console.log(state);
+  }, [state.produits, articles]);
+
   const [errorShown, setErrorShown] = useState(false);
 
+  console.log(state);
   return (
     <>
       <Container className="mt-4" fluid>
@@ -60,20 +68,10 @@ const New = () => {
                   ></Input>
                 </FormGroup>
                 <FormGroup className="mx-4">
-                  <label className=" form-control-label">Fournisseur</label>
-                  <Input
-                    value={state.fournisseur}
-                    type="text"
-                    onChange={(e) =>
-                      setState({ ...state, fournisseur: e.target.value })
-                    }
-                  ></Input>
-                </FormGroup>
-                <FormGroup className="mx-4">
                   <label className=" form-control-label">Articles</label>
                   <ListGroup flush>
                     {state.produits.map((produit, index) => (
-                      <ListGroupItem className="py-0">
+                      <ListGroupItem key={index} className="py-0">
                         <Row className="my-1 align-items-center">
                           <i
                             className="fas fa-minus nav-item"
@@ -112,14 +110,21 @@ const New = () => {
                       </label>
                       <Input
                         value={newProduct.article}
-                        type="text"
+                        type="select"
                         onChange={(e) =>
                           setNewProduct({
                             ...newProduct,
                             article: e.target.value,
                           })
                         }
-                      ></Input>
+                      >
+                        {articles &&
+                          articles.map((article) => (
+                            <option value={article.id}>
+                              {article.reference}
+                            </option>
+                          ))}
+                      </Input>
                     </div>
                     <div className="d-flex flex-grow-1 align-items-center pr-4">
                       <label className="form-control-label pr-2">
@@ -165,52 +170,24 @@ const New = () => {
                   </div>
                 </FormGroup>
                 <FormGroup className="mx-4">
-                  <label className=" form-control-label">Versement</label>
-                  <div className="d-flex">
-                    <div className="d-flex flex-grow-1 align-items-center pr-4">
-                      <label className="form-control-label pr-2">Or:</label>
-                      <Input
-                        value={state.versement.or}
-                        type="text"
-                        onChange={(e) =>
-                          setState({
-                            ...state,
-                            versement: {
-                              ...state.versement,
-                              or: e.target.value,
-                            },
-                          })
-                        }
-                      ></Input>
-                    </div>
-                    <div className="d-flex flex-grow-1 align-items-center pr-4">
-                      <label className="form-control-label pr-2">
-                        Argent (DA):
-                      </label>
-                      <Input
-                        value={state.versement.argent}
-                        type="text"
-                        onChange={(e) =>
-                          setState({
-                            ...state,
-                            versement: {
-                              ...state.versement,
-                              argent: e.target.value,
-                            },
-                          })
-                        }
-                      ></Input>
-                    </div>
-                  </div>
-                </FormGroup>
-                <FormGroup className="mx-4">
                   <Button
                     color="default"
                     type="button"
                     onClick={() => {
                       axios
-                        .post("/api/Achats", objectValuesToUpperCase(state))
-                        .then((res) => router.push("/achats"))
+                        .post(
+                          `/api/${
+                            transaction === "operations"
+                              ? "Operations"
+                              : "Payments"
+                          }`,
+                          state
+                        )
+                        .then((res) =>
+                          router.push(
+                            `/stakeholders/${stakeholderType}/${stakeholderId}/operations`
+                          )
+                        )
                         .catch((err) => setErrorShown(true));
                     }}
                   >

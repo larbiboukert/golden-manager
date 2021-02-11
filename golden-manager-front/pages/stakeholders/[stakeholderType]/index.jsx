@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  Table,
-  Container,
-  Row,
-  Button,
-} from "reactstrap";
-import Header from "../../components/Header/Header";
+import { Card, CardHeader, Table, Container, Row, Button } from "reactstrap";
+import Header from "../../../components/Header/Header";
 import useSWR from "swr";
-import { fetcher } from "../../utils/api";
+import { fetcher } from "../../../utils/api";
 import { useRouter } from "next/router";
 
 const Index = () => {
   const router = useRouter();
+  const { stakeholderType } = router.query;
 
-  const { data, error } = useSWR("/api/Clients", fetcher);
+  const { data, error } = useSWR(`api/Stakeholders?type=${stakeholderType}`, fetcher);
+
   const [itemsList, setItemsList] = useState();
   useEffect(() => {
     setItemsList(data);
@@ -23,11 +18,7 @@ const Index = () => {
 
   return (
     <>
-      <Header
-        brandText={"Clients"}
-        data={data}
-        setFilteredList={setItemsList}
-      />
+      <Header brandText={stakeholderType} data={data} setFilteredList={setItemsList} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -35,8 +26,8 @@ const Index = () => {
           <div className="col">
             <Card className="shadow list">
               <CardHeader className="border-0 d-flex justify-content-between align-items-center">
-                <h3 className="capitalize mb-0">{"Liste des Clients"}</h3>
-                <Button onClick={() => router.push("/clients/new")}>
+                <h3 className="capitalize mb-0">{`Liste des ${stakeholderType}s`}</h3>
+                <Button onClick={() => router.push(`/stakeholders/${stakeholderType}/new`)}>
                   Ajouter
                   <i className="fas fa-plus ml-3" />
                 </Button>
@@ -69,16 +60,18 @@ const Index = () => {
                           <th
                             className="nav-item"
                             scope="row"
-                            onClick={(e) => router.push(`/clients/${row.id}`)}
+                            onClick={(e) =>
+                              router.push(`/stakeholders/${stakeholderType}/${row.id}`)
+                            }
                           >
                             <span className="mb-0 text-sm">
                               {row.reference}
                             </span>
                           </th>
-                          <td>{row.nom}</td>
-                          <td>{row.telephone}</td>
-                          <td>{row.ville}</td>
-                          <td>{row.willaya}</td>
+                          <td>{row.name}</td>
+                          <td>{row.phoneNumber}</td>
+                          <td>{row.city}</td>
+                          <td>{row.state}</td>
                         </tr>
                       ))
                     )}

@@ -28,7 +28,7 @@ function Sidebar(props) {
   const router = useRouter();
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   // verifies if routeName is the one active (in browser input)
-  const activeRoute = (routeName) => router.route === (routeName);
+  const activeRoute = (routeName) => router.route === routeName;
 
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
@@ -39,22 +39,20 @@ function Sidebar(props) {
     setCollapseOpen(false);
   };
   // creates the links that appear in the left menu / Sidebar
-  const sideBarLinks = ["achats", "ventes", "articles", "clients", "fournisseurs", "charges"];
-  const createLinks = () =>
-    sideBarLinks.map((entity, key) => (
-      <NavItem key={key} active={activeRoute(`/${entity}`)}>
-        <Link href={`/${entity}`}>
-          <NavLink
-            className="capitalize"
-            active={activeRoute(`/${entity}`)}
-            onClick={closeCollapse}
-          >
-            <i className={"ni ni-bullet-list-67 text-red"} />
-            {entity}
-          </NavLink>
-        </Link>
-      </NavItem>
-    ));
+  const SideBarLink = ({ name, route }) => (
+    <NavItem active={activeRoute(route)}>
+      <Link href={route}>
+        <NavLink
+          className="capitalize"
+          active={activeRoute(route)}
+          onClick={closeCollapse}
+        >
+          <i className={"ni ni-bullet-list-67 text-red"} />
+          {name}
+        </NavLink>
+      </Link>
+    </NavItem>
+  );
 
   const { logo } = props;
   let navbarBrand = (
@@ -148,7 +146,15 @@ function Sidebar(props) {
           {/* Divider */}
           <hr className="my-3" />
           {/* Navigation */}
-          <Nav navbar>{createLinks()}</Nav>
+          <Nav navbar>
+            <SideBarLink name="clients" route="/stakeholders/clients" />
+            <SideBarLink
+              name="fournisseurs"
+              route="/stakeholders/fournisseurs"
+            />
+            <SideBarLink name="articles" route="/articles" />
+            <SideBarLink name="charges" route="/charges" />
+          </Nav>
         </Collapse>
       </Container>
     </Navbar>

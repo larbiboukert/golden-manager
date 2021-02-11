@@ -12,47 +12,47 @@ namespace GoldenManagerService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientsController : ControllerBase
+    public class PaymentsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ClientsController(ApplicationDbContext context)
+        public PaymentsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clients
+        // GET: api/Payments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
+        public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
         {
-            return await _context.Clients.ToListAsync();
+            return await _context.Payments.ToListAsync();
         }
 
-        // GET: api/Clients/5
+        // GET: api/Payments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClient(int id)
+        public async Task<ActionResult<Payment>> GetPayment(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            var payment = await _context.Payments.FindAsync(id);
 
-            if (client == null)
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            return client;
+            return payment;
         }
 
-        // PUT: api/Clients/5
+        // PUT: api/Payments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(int id, Client client)
+        public async Task<IActionResult> PutPayment(int id, Payment payment)
         {
-            if (id != client.ID)
+            if (id != payment.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(client).State = EntityState.Modified;
+            _context.Entry(payment).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace GoldenManagerService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClientExists(id))
+                if (!PaymentExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace GoldenManagerService.Controllers
             return NoContent();
         }
 
-        // POST: api/Clients
+        // POST: api/Payments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
+        public async Task<ActionResult<Payment>> PostPayment(Payment payment)
         {
-            _context.Clients.Add(client);
+            _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClient", new { id = client.ID }, client);
+            return CreatedAtAction("GetPayment", new { id = payment.ID }, payment);
         }
 
-        // DELETE: api/Clients/5
+        // DELETE: api/Payments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClient(int id)
+        public async Task<IActionResult> DeletePayment(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null)
+            var payment = await _context.Payments.FindAsync(id);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            _context.Clients.Remove(client);
+            _context.Payments.Remove(payment);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClientExists(int id)
+        private bool PaymentExists(int id)
         {
-            return _context.Clients.Any(e => e.ID == id);
+            return _context.Payments.Any(e => e.ID == id);
         }
     }
 }
