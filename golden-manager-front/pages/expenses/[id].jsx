@@ -4,10 +4,10 @@ import { fetcher } from "../../utils/api";
 import { useRouter } from "next/router";
 import ItemDetailCard from "../../components/ItemDetailCard/ItemDetailCard";
 
-const Edit = () => {
+const Detail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data, error } = useSWR(`/api/Articles/${id}`, fetcher);
+  const { data, error } = useSWR(`/api/Expenses/${id}`, fetcher);
 
   return (
     <>
@@ -15,19 +15,15 @@ const Edit = () => {
         reference={data?.reference}
         midSection={[
           {
-            label: "nom",
-            value: data?.name,
-          },
-          {
-            label: "libele",
-            value: data?.label,
-          },
-          {
-            label: "famille",
-            value: data?.family,
+            label: "date",
+            value: data?.date,
           },
         ]}
         bottomSection={[
+          {
+            label: "montant (DA)",
+            value: data?.money,
+          },
           {
             label: "designation",
             value: data?.designation,
@@ -39,4 +35,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default Detail;

@@ -1,9 +1,6 @@
 import React from "react";
-// reactstrap components
-import { Container } from "reactstrap";
-// core components
-import Footer from "components/Footer/Footer.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+import Sidebar from "components/Sidebar/Sidebar";
+import { Col, Container, Row } from "reactstrap";
 
 function Dashboard(props) {
   // used for checking current route
@@ -24,9 +21,10 @@ function Dashboard(props) {
         }}
       />
       <div className="main-content" ref={mainContentRef}>
-        {props.children}
-        <Container fluid>
-          <Footer />
+        <Container className="my-4" fluid>
+          <Row>
+            <Col>{props.children}</Col>
+          </Row>
         </Container>
       </div>
     </>

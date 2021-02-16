@@ -22,6 +22,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Footer from "./Footer/Footer";
 
 function Sidebar(props) {
   // used for checking current route
@@ -147,15 +148,14 @@ function Sidebar(props) {
           <hr className="my-3" />
           {/* Navigation */}
           <Nav navbar>
-            <SideBarLink name="clients" route="/stakeholders/clients" />
-            <SideBarLink
-              name="fournisseurs"
-              route="/stakeholders/fournisseurs"
-            />
+            <SideBarLink name="clients" route="/customers" />
+            <SideBarLink name="fournisseurs" route="/suppliers" />
             <SideBarLink name="articles" route="/articles" />
-            <SideBarLink name="charges" route="/charges" />
+            <SideBarLink name="charges" route="/expenses" />
           </Nav>
         </Collapse>
+
+        <Footer />
       </Container>
     </Navbar>
   );

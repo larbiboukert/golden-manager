@@ -5,27 +5,27 @@ const New = () => {
   return (
     <>
       <AddItemCard
-        headerTitle={"Ajouter un Client"}
+        headerTitle={"Ajouter une charge"}
         formMetaData={[
           {
-            label: "nom",
-            input: "name",
+            label: "date",
+            input: "date",
+            type: "date",
+            value: new Date().toISOString().split("T")[0],
           },
           {
-            label: "libele",
-            input: "label",
-          },
-          {
-            label: "famille",
-            input: "family",
+            label: "montant (DA)",
+            input: "money",
+            value: 0,
           },
           {
             label: "designation",
             input: "designation",
+            value: 0,
           },
         ]}
-        postRoute="/api/Articles"
-        redirectPath="/articles"
+        postRoute="/api/Expenses"
+        redirectPath="/expenses"
       />
     </>
   );

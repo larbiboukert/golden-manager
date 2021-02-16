@@ -12,47 +12,52 @@ namespace GoldenManagerService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OperationsController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public OperationsController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Operations
+        // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Operation>>> GetOperations()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
-            return await _context.Operations.ToListAsync();
+            return await _context.Customers.ToListAsync();
         }
 
-        // GET: api/Operations/5
+        // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Operation>> GetOperation(int id)
+        public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-            var operation = await _context.Operations.FindAsync(id);
+            var customer = await _context.Customers
+                .Include(c => c.Sales)
+                    .ThenInclude(s => s.Products)
+                        .ThenInclude(p => p.Article)
+                .Include(c => c.CustomerPayments)
+                .FirstOrDefaultAsync(c => c.ID == id);
 
-            if (operation == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return operation;
+            return customer;
         }
 
-        // PUT: api/Operations/5
+        // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOperation(int id, Operation operation)
+        public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
-            if (id != operation.ID)
+            if (id != customer.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(operation).State = EntityState.Modified;
+            _context.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +65,7 @@ namespace GoldenManagerService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OperationExists(id))
+                if (!CustomerExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +78,36 @@ namespace GoldenManagerService.Controllers
             return NoContent();
         }
 
-        // POST: api/Operations
+        // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Operation>> PostOperation(Operation operation)
+        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-            _context.Operations.Add(operation);
+            _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOperation", new { id = operation.ID }, operation);
+            return CreatedAtAction("GetCustomer", new { id = customer.ID }, customer);
         }
 
-        // DELETE: api/Operations/5
+        // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOperation(int id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var operation = await _context.Operations.FindAsync(id);
-            if (operation == null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            _context.Operations.Remove(operation);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool OperationExists(int id)
+        private bool CustomerExists(int id)
         {
-            return _context.Operations.Any(e => e.ID == id);
+            return _context.Customers.Any(e => e.ID == id);
         }
     }
 }

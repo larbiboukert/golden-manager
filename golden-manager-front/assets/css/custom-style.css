@@ -8,9 +8,6 @@
 .table td {
   padding: unset;
 }
-.list {
-  height: 70vh;
-}
 
 .navbar-brand-img {
   max-height: unset !important;

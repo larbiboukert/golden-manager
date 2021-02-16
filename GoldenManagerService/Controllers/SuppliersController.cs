@@ -12,47 +12,47 @@ namespace GoldenManagerService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentsController : ControllerBase
+    public class SuppliersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public PaymentsController(ApplicationDbContext context)
+        public SuppliersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Payments
+        // GET: api/Suppliers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
+        public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
         {
-            return await _context.Payments.ToListAsync();
+            return await _context.Suppliers.ToListAsync();
         }
 
-        // GET: api/Payments/5
+        // GET: api/Suppliers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Payment>> GetPayment(int id)
+        public async Task<ActionResult<Supplier>> GetSupplier(int id)
         {
-            var payment = await _context.Payments.FindAsync(id);
+            var supplier = await _context.Suppliers.FindAsync(id);
 
-            if (payment == null)
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return payment;
+            return supplier;
         }
 
-        // PUT: api/Payments/5
+        // PUT: api/Suppliers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPayment(int id, Payment payment)
+        public async Task<IActionResult> PutSupplier(int id, Supplier supplier)
         {
-            if (id != payment.ID)
+            if (id != supplier.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(payment).State = EntityState.Modified;
+            _context.Entry(supplier).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace GoldenManagerService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PaymentExists(id))
+                if (!SupplierExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace GoldenManagerService.Controllers
             return NoContent();
         }
 
-        // POST: api/Payments
+        // POST: api/Suppliers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Payment>> PostPayment(Payment payment)
+        public async Task<ActionResult<Supplier>> PostSupplier(Supplier supplier)
         {
-            _context.Payments.Add(payment);
+            _context.Suppliers.Add(supplier);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPayment", new { id = payment.ID }, payment);
+            return CreatedAtAction("GetSupplier", new { id = supplier.ID }, supplier);
         }
 
-        // DELETE: api/Payments/5
+        // DELETE: api/Suppliers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePayment(int id)
+        public async Task<IActionResult> DeleteSupplier(int id)
         {
-            var payment = await _context.Payments.FindAsync(id);
-            if (payment == null)
+            var supplier = await _context.Suppliers.FindAsync(id);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            _context.Payments.Remove(payment);
+            _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PaymentExists(int id)
+        private bool SupplierExists(int id)
         {
-            return _context.Payments.Any(e => e.ID == id);
+            return _context.Suppliers.Any(e => e.ID == id);
         }
     }
 }

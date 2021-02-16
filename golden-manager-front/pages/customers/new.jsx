@@ -8,24 +8,24 @@ const New = () => {
         headerTitle={"Ajouter un Client"}
         formMetaData={[
           {
-            label: "nom",
+            label: "Nom",
             input: "name",
           },
           {
-            label: "libele",
-            input: "label",
+            label: "Telephone",
+            input: "phoneNumber",
           },
           {
-            label: "famille",
-            input: "family",
+            label: "Ville",
+            input: "city",
           },
           {
-            label: "designation",
-            input: "designation",
+            label: "Willaya",
+            input: "state",
           },
         ]}
-        postRoute="/api/Articles"
-        redirectPath="/articles"
+        postRoute="/api/Customers"
+        redirectPath="/customers"
       />
     </>
   );
