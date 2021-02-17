@@ -32,7 +32,9 @@ const AddItemCard = ({
           <Form>
             {formMetaData.map((data, key) => (
               <FormGroup key={key} className="mx-4">
-                <label className="form-control-label capitalize">{data.label}</label>
+                <label className="form-control-label capitalize">
+                  {data.label}
+                </label>
                 <Input
                   type={data.type ?? "text"}
                   defaultValue={data.value ?? ""}

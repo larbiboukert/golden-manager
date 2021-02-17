@@ -7,8 +7,8 @@ import { fetcher } from "../../../../utils/api";
 
 const Detail = () => {
   const router = useRouter();
-  const { saleId } = router.query;
-  const { data, error } = useSWR(`/api/Sales/${saleId}`, fetcher);
+  const { supplyId } = router.query;
+  const { data, error } = useSWR(`/api/Supplies/${supplyId}`, fetcher);
 
   return (
     <>

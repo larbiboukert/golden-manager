@@ -17,7 +17,7 @@ import { fetcher } from "../../../../utils/api";
 
 const New = () => {
   const router = useRouter();
-  const { customerId } = router.query;
+  const { supplierId } = router.query;
 
   const [state, setState] = useState({
     date: new Date().toISOString().split("T")[0],
@@ -42,7 +42,7 @@ const New = () => {
     <>
       <Card className="shadow">
         <CardHeader className="border-0">
-          <h3 className="capitalize mb-0">{"Ajouter un vente"}</h3>
+          <h3 className="capitalize mb-0">{"Ajouter un achat"}</h3>
         </CardHeader>
         <Form>
           <FormGroup className="mx-4">
@@ -168,8 +168,8 @@ const New = () => {
               type="button"
               onClick={() => {
                 axios
-                  .post(`/api/Sales?customerId=${customerId}`, state)
-                  .then((res) => router.push(`/customers/${customerId}`))
+                  .post(`/api/Supplies?supplierId=${supplierId}`, state)
+                  .then((res) => router.push(`/suppliers/${supplierId}`))
                   .catch((err) => console.log(err));
               }}
             >

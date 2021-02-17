@@ -30,7 +30,7 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
     <>
       <Card className="shadow">
         <CardHeader className="border-0 d-flex justify-content-between align-items-center">
-          <h1>{headerTitle}</h1>
+          <h1 className="capitalize">{headerTitle}</h1>
           <SearchBar
             data={
               navItemsMetaData.find((md) => md.navName === activeTab).table.data
@@ -38,16 +38,19 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
             setFilteredList={setItemsList}
           />
           <div className="d-flex ml-4">
-            {navItemsMetaData.map((md, key) => (
-              <Button
-                key={key}
-                className="capitalize"
-                onClick={() => router.push(md.addItemRoutePath)}
-              >
-                <i className="fas fa-plus mr-2" />
-                {md.addItemButtonText}
-              </Button>
-            ))}
+            {navItemsMetaData.map(
+              (md, key) =>
+                md.addItemButtonText && (
+                  <Button
+                    key={key}
+                    className="capitalize"
+                    onClick={() => router.push(md.addItemRoutePath)}
+                  >
+                    <i className="fas fa-plus mr-2" />
+                    {md.addItemButtonText}
+                  </Button>
+                )
+            )}
           </div>
         </CardHeader>
         {error ? (
@@ -110,7 +113,9 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
                             </th>
                             {md.table.metaData.map((col, k) => (
                               <td key={k} scope="col">
-                                {row[col.propName]}
+                                {col.subPropName
+                                  ? row[col.propName][col.subPropName]
+                                  : row[col.propName]}
                               </td>
                             ))}
                           </tr>

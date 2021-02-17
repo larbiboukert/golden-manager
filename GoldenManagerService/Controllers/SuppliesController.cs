@@ -12,50 +12,50 @@ namespace GoldenManagerService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SalesController : ControllerBase
+    public class SuppliesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public SalesController(ApplicationDbContext context)
+        public SuppliesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Sales?customerId=
+        // GET: api/Supplies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sale>>> GetSales([FromQuery]int customerId)
+        public async Task<ActionResult<IEnumerable<Supply>>> GetSupplies()
         {
-            return await _context.Sales.ToListAsync();
+            return await _context.Supplies.ToListAsync();
         }
 
-        // GET: api/Sales/5
+        // GET: api/Supplies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Sale>> GetSale([FromRoute]int id)
+        public async Task<ActionResult<Supply>> GetSupply(int id)
         {
-            var sale = await _context.Sales
+            var supply = await _context.Supplies
                 .Include(s => s.Products)
                     .ThenInclude(p => p.Article)
                 .FirstOrDefaultAsync(s => s.ID == id);
 
-            if (sale == null)
+            if (supply == null)
             {
                 return NotFound();
             }
 
-            return sale;
+            return supply;
         }
 
-        // PUT: api/Sales/5
+        // PUT: api/Supplies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSale(int id, Sale sale)
+        public async Task<IActionResult> PutSupply(int id, Supply supply)
         {
-            if (id != sale.ID)
+            if (id != supply.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(sale).State = EntityState.Modified;
+            _context.Entry(supply).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +63,7 @@ namespace GoldenManagerService.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SaleExists(id))
+                if (!SupplyExists(id))
                 {
                     return NotFound();
                 }
@@ -76,43 +76,43 @@ namespace GoldenManagerService.Controllers
             return NoContent();
         }
 
-        // POST: api/Sales
+        // POST: api/Supplies
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Sale>> PostSale(Sale sale, int customerId)
+        public async Task<ActionResult<Supply>> PostSupply(Supply supply, int supplierId)
         {
-            var customer = _context.Customers
-                .Include(c => c.Sales)
-                .FirstOrDefault(c => c.ID == customerId);
+            var supplier = _context.Suppliers
+                .Include(s => s.Supplies)
+                .FirstOrDefault(s => s.ID == supplierId);
 
-            sale.Products
+            supply.Products
                 .ForEach(p => p.Article = _context.Articles.Find(p.Article.ID));
 
-            customer.Sales.Add(sale);
+            supplier.Supplies.Add(supply);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSale", new { id = sale.ID }, sale);
+            return CreatedAtAction("GetSupply", new { id = supply.ID }, supply);
         }
 
-        // DELETE: api/Sales/5
+        // DELETE: api/Supplies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSale(int id)
+        public async Task<IActionResult> DeleteSupply(int id)
         {
-            var sale = await _context.Sales.FindAsync(id);
-            if (sale == null)
+            var supply = await _context.Supplies.FindAsync(id);
+            if (supply == null)
             {
                 return NotFound();
             }
 
-            _context.Sales.Remove(sale);
+            _context.Supplies.Remove(supply);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool SaleExists(int id)
+        private bool SupplyExists(int id)
         {
-            return _context.Sales.Any(e => e.ID == id);
+            return _context.Supplies.Any(e => e.ID == id);
         }
     }
 }

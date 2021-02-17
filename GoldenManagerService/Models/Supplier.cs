@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GoldenManagerService.Models
 {
@@ -11,6 +12,9 @@ namespace GoldenManagerService.Models
         public string City { get; set; }
         public string State { get; set; }
         public List<Supply> Supplies { get; set; }
+        public decimal? TotalSupplies => Supplies?.Sum(s => s.Total);
         public List<SupplierPayment> SupplierPayments { get; set; }
+        public float? TotalPayedGold => SupplierPayments?.Sum(cp => cp.Grams);
+        public decimal? TotalPayedMoney => SupplierPayments?.Sum(cp => cp.Money);
     }
 }

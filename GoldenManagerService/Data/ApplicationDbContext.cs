@@ -16,6 +16,6 @@ namespace GoldenManagerService.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerPayment> CustomerPayments { get; set; }
         public DbSet<SupplierPayment> SupplierPayments { get; set; }
-        public DbSet<SupplierPaymentProduct> SupplierPaymentProducts { get; set; }
+        public DbSet<LaboratoryReport> LaboratoryReports { get; set; }
     }
 }

@@ -76,9 +76,18 @@ namespace GoldenManagerService.Controllers
         // POST: api/SupplierPayments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<SupplierPayment>> PostSupplierPayment(SupplierPayment supplierPayment)
+        public async Task<ActionResult<SupplierPayment>> PostSupplierPayment(
+            SupplierPayment supplierPayment,
+            int supplierId
+        )
         {
             _context.SupplierPayments.Add(supplierPayment);
+
+            var supplier = _context.Suppliers
+                .Include(s => s.SupplierPayments)
+                .FirstOrDefault(c => c.ID == supplierId);
+
+            supplier.SupplierPayments.Add(supplierPayment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSupplierPayment", new { id = supplierPayment.ID }, supplierPayment);

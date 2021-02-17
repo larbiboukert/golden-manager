@@ -7,8 +7,8 @@ import ItemDetailCard from "../../../components/ItemDetailCard/ItemDetailCard";
 
 const Index = () => {
   const router = useRouter();
-  const { customerId } = router.query;
-  const { data, error } = useSWR(`/api/Customers/${customerId}`, fetcher);
+  const { supplierId } = router.query;
+  const { data, error } = useSWR(`/api/Suppliers/${supplierId}`, fetcher);
 
   return (
     <>
@@ -34,8 +34,8 @@ const Index = () => {
         ]}
         bottomSection={[
           {
-            label: "totale ventes (DA)",
-            value: data?.totalSales,
+            label: "totale achats (DA)",
+            value: data?.totalSupplies,
           },
           {
             label: "totale des versements or (g)",
@@ -48,32 +48,32 @@ const Index = () => {
         ]}
       />
       <ItemsListTableCard
-        headerTitle={"Ventes et versements client"}
+        headerTitle={"Achats et versements fournisseur"}
         navItemsMetaData={[
           {
-            navName: "ventes",
-            addItemButtonText: "vente",
-            addItemRoutePath: `/customers/${customerId}/sales/new`,
+            navName: "achats",
+            addItemButtonText: "achat",
+            addItemRoutePath: `/suppliers/${supplierId}/supplies/new`,
             table: {
-              itemBaseRoutePath: `/customers/${customerId}/sales`,
+              itemBaseRoutePath: `/suppliers/${supplierId}/supplies`,
               metaData: [
-                { label: "Date", propName: "date" },
+                { label: "date", propName: "date" },
                 { label: "totale (da)", propName: "total" },
               ],
-              data: data?.sales,
+              data: data?.supplies,
             },
           },
           {
             navName: "versements",
             addItemButtonText: "versement",
-            addItemRoutePath: `/customers/${customerId}/new-customer-payment`,
+            addItemRoutePath: `/suppliers/${supplierId}/new-supplier-payment`,
             table: {
               metaData: [
-                { label: "Date", propName: "date" },
+                { label: "date", propName: "date" },
                 { label: "argent versee (da)", propName: "money" },
                 { label: "or versee (g)", propName: "grams" },
               ],
-              data: data?.customerPayments,
+              data: data?.supplierPayments,
             },
           },
         ]}

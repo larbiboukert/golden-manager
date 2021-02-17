@@ -32,7 +32,12 @@ namespace GoldenManagerService.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Supplier>> GetSupplier(int id)
         {
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _context.Suppliers
+                .Include(s => s.Supplies)
+                    .ThenInclude(s => s.Products)
+                        .ThenInclude(p => p.Article)
+                .Include(s => s.SupplierPayments)
+                .FirstOrDefaultAsync(c => c.ID == id);
 
             if (supplier == null)
             {
