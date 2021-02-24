@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import AddItemCard from "../../../components/AddItemCard/AddItemCard";
+import AddItemCard from "../../../../components/AddItemCard/AddItemCard";
 
 const New = () => {
   const router = useRouter();

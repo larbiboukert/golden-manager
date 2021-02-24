@@ -10,20 +10,24 @@ const ItemDetailCard = ({ reference, midSection, bottomSection, error }) => {
         ) : (
           <>
             <CardHeader>
-              <Label className="pr-4 capitalize">Reference:</Label>
-              <Label>{reference}</Label>
+              {reference && (
+                <>
+                  <Label className="pr-4 uppercase">Reference:</Label>
+                  <Label>{reference}</Label>
+                </>
+              )}
             </CardHeader>
             <CardBody>
               {midSection.map((data, key) => (
                 <FormGroup key={key}>
-                  <Label className="pr-4 capitalize">{data.label}:</Label>
+                  <Label className="pr-4 uppercase">{data.label}:</Label>
                   <Label>{data.value}</Label>
                 </FormGroup>
               ))}
               <hr />
               {bottomSection.map((data, key) => (
                 <FormGroup key={key}>
-                  <Label className="pr-4 capitalize">{data.label}:</Label>
+                  <Label className="pr-4 uppercase">{data.label}:</Label>
                   <Label>{data.value}</Label>
                 </FormGroup>
               ))}

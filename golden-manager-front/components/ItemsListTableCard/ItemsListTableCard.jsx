@@ -30,7 +30,7 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
     <>
       <Card className="shadow">
         <CardHeader className="border-0 d-flex justify-content-between align-items-center">
-          <h1 className="capitalize">{headerTitle}</h1>
+          <h1 className="uppercase">{headerTitle}</h1>
           <SearchBar
             data={
               navItemsMetaData.find((md) => md.navName === activeTab).table.data
@@ -43,7 +43,7 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
                 md.addItemButtonText && (
                   <Button
                     key={key}
-                    className="capitalize"
+                    className="uppercase"
                     onClick={() => router.push(md.addItemRoutePath)}
                   >
                     <i className="fas fa-plus mr-2" />
@@ -61,7 +61,7 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
               {navItemsMetaData.map((md, key) => (
                 <NavItem key={key}>
                   <NavLink
-                    className={`capitalize${
+                    className={`uppercase${
                       activeTab === md.navName && " active"
                     }`}
                     onClick={() => setActiveTab(md.navName)}
@@ -77,7 +77,7 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
                   <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                       <tr>
-                        <th scope="col">Reference</th>
+                        {!md.table.hideRef && <th scope="col">Reference</th>}
                         {md.table.metaData.map((col, k) => (
                           <th key={k} scope="col">
                             {col.label}
@@ -97,20 +97,22 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
                       ) : (
                         itemsList.map((row) => (
                           <tr key={row.id}>
-                            <th
-                              className="nav-item"
-                              scope="row"
-                              onClick={(e) =>
-                                md.table.itemBaseRoutePath &&
-                                router.push(
-                                  `${md.table.itemBaseRoutePath}/${row.id}`
-                                )
-                              }
-                            >
-                              <span className="mb-0 text-sm">
-                                {row.reference}
-                              </span>
-                            </th>
+                            {!md.table.hideRef && (
+                              <th
+                                className="nav-item"
+                                scope="row"
+                                onClick={(e) =>
+                                  md.table.itemBaseRoutePath &&
+                                  router.push(
+                                    `${md.table.itemBaseRoutePath}/${row.id}`
+                                  )
+                                }
+                              >
+                                <span className="mb-0 text-sm">
+                                  {row.reference}
+                                </span>
+                              </th>
+                            )}
                             {md.table.metaData.map((col, k) => (
                               <td key={k} scope="col">
                                 {col.subPropName

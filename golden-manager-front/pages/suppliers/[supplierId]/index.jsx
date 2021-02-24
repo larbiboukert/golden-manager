@@ -66,8 +66,9 @@ const Index = () => {
           {
             navName: "versements",
             addItemButtonText: "versement",
-            addItemRoutePath: `/suppliers/${supplierId}/new-supplier-payment`,
+            addItemRoutePath: `/suppliers/${supplierId}/supplier-payments/new`,
             table: {
+              itemBaseRoutePath: `/suppliers/${supplierId}/supplier-payments`,
               metaData: [
                 { label: "date", propName: "date" },
                 { label: "argent versee (da)", propName: "money" },

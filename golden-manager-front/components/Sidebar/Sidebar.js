@@ -44,7 +44,7 @@ function Sidebar(props) {
     <NavItem active={activeRoute(route)}>
       <Link href={route}>
         <NavLink
-          className="capitalize"
+          className="uppercase"
           active={activeRoute(route)}
           onClick={closeCollapse}
         >
@@ -152,6 +152,7 @@ function Sidebar(props) {
             <SideBarLink name="fournisseurs" route="/suppliers" />
             <SideBarLink name="articles" route="/articles" />
             <SideBarLink name="charges" route="/expenses" />
+            <SideBarLink name="achats anonymes" route="/anonymous-purchases" />
           </Nav>
         </Collapse>
 

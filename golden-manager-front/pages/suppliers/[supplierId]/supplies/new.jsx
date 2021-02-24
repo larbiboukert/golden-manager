@@ -42,7 +42,7 @@ const New = () => {
     <>
       <Card className="shadow">
         <CardHeader className="border-0">
-          <h3 className="capitalize mb-0">{"Ajouter un achat"}</h3>
+          <h3 className="uppercase mb-0">{"Ajouter un achat"}</h3>
         </CardHeader>
         <Form>
           <FormGroup className="mx-4">
