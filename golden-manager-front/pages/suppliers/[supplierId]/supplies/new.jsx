@@ -29,7 +29,7 @@ const New = () => {
   const [newProduct, setNewProduct] = useState();
   useEffect(() => {
     setNewProduct({
-      article: { id: articles ? articles[0].id : "" },
+      article: { id: articles && articles.length > 0 ? articles[0].id : "" },
       grams: 0,
       unitPrice: 0,
     });
@@ -151,12 +151,13 @@ const New = () => {
               </div>
               <Button
                 className="h-100 align-self-center"
-                onClick={() => {
+                onClick={() =>
+                  newProduct.article.id !== "" &&
                   setState({
                     ...state,
                     products: [...state.products, newProduct],
-                  });
-                }}
+                  })
+                }
               >
                 <i className="fas fa-plus" />
               </Button>

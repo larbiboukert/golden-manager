@@ -48,7 +48,7 @@ const Index = () => {
         ]}
       />
       <ItemsListTableCard
-        headerTitle={"Ventes et versements client"}
+        headerTitle={"Ventes & versements client"}
         navItemsMetaData={[
           {
             navName: "ventes",
@@ -57,7 +57,7 @@ const Index = () => {
             table: {
               itemBaseRoutePath: `/customers/${customerId}/sales`,
               metaData: [
-                { label: "Date", propName: "date" },
+                { label: "date", propName: "date" },
                 { label: "totale (da)", propName: "total" },
               ],
               data: data?.sales,
@@ -69,7 +69,7 @@ const Index = () => {
             addItemRoutePath: `/customers/${customerId}/new-customer-payment`,
             table: {
               metaData: [
-                { label: "Date", propName: "date" },
+                { label: "date", propName: "date" },
                 { label: "argent versee (da)", propName: "money" },
                 { label: "or versee (g)", propName: "grams" },
               ],

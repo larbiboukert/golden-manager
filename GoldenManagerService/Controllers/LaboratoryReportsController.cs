@@ -83,7 +83,10 @@ namespace GoldenManagerService.Controllers
                 .Include(p => p.LaboratoryReports)
                 .FirstOrDefault(p => p.ID == supplierPaymentId);
 
-            laboratoryReports.ForEach(r => r.Customer = _context.Customers.Find(r.Customer.ID));
+            laboratoryReports.ForEach(r =>
+            {
+                if (r.Customer != null) r.Customer = _context.Customers.Find(r.Customer.ID);
+            });
 
             supplierPayment.LaboratoryReports.AddRange(laboratoryReports);
             await _context.SaveChangesAsync();

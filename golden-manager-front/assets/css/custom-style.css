@@ -24,3 +24,7 @@
 td {
   padding: 8px 24px!important;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}

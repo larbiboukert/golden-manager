@@ -28,7 +28,7 @@ const New = () => {
   const [newItem, setNewItem] = useState();
   useEffect(() => {
     setNewItem({
-      customer: { id: selectInputItems ? selectInputItems[0].id : "" },
+      customer: null,
       payedGold: 0,
       melting: 0,
       fineness: 0,
@@ -61,12 +61,12 @@ const New = () => {
                     />
                     <div className="d-flex col">
                       <h5 className="mx-2 mb-0">
-                        {
-                          selectInputItems.find(
-                            (selectInputItem) =>
-                              selectInputItem.id == item.customer.id
-                          ).reference
-                        }
+                        {item.customer === null
+                          ? "ANONYME"
+                          : selectInputItems.find(
+                              (selectInputItem) =>
+                                selectInputItem.id == item.customer.id
+                            ).reference}
                       </h5>
                     </div>
                     <div className="d-flex col">
@@ -90,11 +90,11 @@ const New = () => {
                 <label className="form-control-label pr-2">{"Client"}</label>
                 <Input
                   type="select"
-                  value={newItem?.customer.id}
+                  value={newItem?.customer?.id}
                   onChange={(e) =>
                     setNewItem({
                       ...newItem,
-                      customer: { id: e.target.value },
+                      customer: !e.target.value ? null : { id: e.target.value },
                     })
                   }
                 >
@@ -102,17 +102,18 @@ const New = () => {
                     <option>Erreur! rafraichir la page</option>
                   ) : !selectInputItems ? (
                     <option>Loading..</option>
-                  ) : selectInputItems.length === 0 ? (
-                    <option>pas de clients!</option>
                   ) : (
-                    selectInputItems.map((selectInputItem) => (
-                      <option
-                        key={selectInputItem.id}
-                        value={selectInputItem.id}
-                      >
-                        {selectInputItem.reference}
-                      </option>
-                    ))
+                    <>
+                      <option value={null}>{"ANONYME"}</option>
+                      {selectInputItems.map((selectInputItem) => (
+                        <option
+                          key={selectInputItem.id}
+                          value={selectInputItem.id}
+                        >
+                          {selectInputItem.reference}
+                        </option>
+                      ))}
+                    </>
                   )}
                 </Input>
               </div>

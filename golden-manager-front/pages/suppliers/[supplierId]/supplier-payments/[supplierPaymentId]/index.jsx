@@ -48,6 +48,7 @@ const Detail = () => {
                   label: "reference client",
                   propName: "customer",
                   subPropName: "reference",
+                  ifNull: "ANONYME"
                 },
                 { label: "or versee", propName: "payedGold" },
                 { label: "fonte", propName: "melting" },

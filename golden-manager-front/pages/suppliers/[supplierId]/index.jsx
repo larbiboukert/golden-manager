@@ -48,7 +48,7 @@ const Index = () => {
         ]}
       />
       <ItemsListTableCard
-        headerTitle={"Achats et versements fournisseur"}
+        headerTitle={"Achats & versements fournisseur"}
         navItemsMetaData={[
           {
             navName: "achats",

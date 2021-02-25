@@ -19,7 +19,14 @@ const AddItemCard = ({
   redirectPath,
 }) => {
   const router = useRouter();
-  const [state, setState] = useState();
+  const [state, setState] = useState(() => {
+    const s = {};
+    formMetaData.map((md) => {
+      if (md.value) s[md.input] = md.value;
+    });
+    return s;
+  });
+
   const [errorShown, setErrorShown] = useState(false);
 
   return (

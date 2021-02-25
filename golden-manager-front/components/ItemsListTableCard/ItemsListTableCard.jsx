@@ -36,6 +36,9 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
               navItemsMetaData.find((md) => md.navName === activeTab).table.data
             }
             setFilteredList={setItemsList}
+            dateFilter={navItemsMetaData
+              .find((md) => md.navName === activeTab)
+              .table.metaData.some((md) => md.label.toLowerCase() === "date")}
           />
           <div className="d-flex ml-4">
             {navItemsMetaData.map(
@@ -115,9 +118,11 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
                             )}
                             {md.table.metaData.map((col, k) => (
                               <td key={k} scope="col">
-                                {col.subPropName
+                                {(!row[col.propName]
+                                  ? col.ifNull
+                                  : col.subPropName
                                   ? row[col.propName][col.subPropName]
-                                  : row[col.propName]}
+                                  : row[col.propName]) || 0}
                               </td>
                             ))}
                           </tr>
