@@ -34,16 +34,36 @@ const Index = () => {
         ]}
         bottomSection={[
           {
-            label: "totale ventes (DA)",
-            value: data?.totalSales,
+            label: "totale ventes argent (da)",
+            value: data?.totalMoneySold,
+          },
+          {
+            label: "totale ventes or (g)",
+            value: data?.totalGoldSold,
+          },
+          {
+            label: "totale des versements argents (DA)",
+            value: data?.totalPayedMoney,
           },
           {
             label: "totale des versements or (g)",
             value: data?.totalPayedGold,
           },
           {
-            label: "totale des versements argents (DA)",
-            value: data?.totalPayedMoney,
+            label: "credit argent (da)",
+            value: data?.totalMoneyCredit,
+          },
+          {
+            label: "credit or (g)",
+            value: data?.totalGoldCredit,
+          },
+          {
+            label: "ecart or (g)",
+            value: data?.totalGap,
+          },
+          {
+            label: "credit or avec ecart (g)",
+            value: data ? data.totalGoldCredit + data.totalGap : "",
           },
         ]}
       />
@@ -58,9 +78,10 @@ const Index = () => {
               itemBaseRoutePath: `/customers/${customerId}/sales`,
               metaData: [
                 { label: "date", propName: "date" },
-                { label: "totale (da)", propName: "total" },
+                { label: "totale argent (da)", propName: "totalMoney" },
+                { label: "totale or (g)", propName: "totalGrams" },
               ],
-              data: data?.sales,
+              data: data?.sales.$values,
             },
           },
           {
@@ -73,7 +94,7 @@ const Index = () => {
                 { label: "argent versee (da)", propName: "money" },
                 { label: "or versee (g)", propName: "grams" },
               ],
-              data: data?.customerPayments,
+              data: data?.customerPayments.$values,
             },
           },
         ]}

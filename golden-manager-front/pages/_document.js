@@ -8,7 +8,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#000000" />
-          {/* Fonts and icons */}
+          <link rel="shortcut icon" href="/favicon.ico" />
           <link
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
             rel="stylesheet"

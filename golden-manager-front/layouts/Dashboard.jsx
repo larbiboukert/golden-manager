@@ -15,13 +15,13 @@ function Dashboard(props) {
       <Sidebar
         {...props}
         logo={{
-          innerLink: "/articles",
+          innerLink: "/",
           imgSrc: require("assets/img/brand/logo.svg"),
-          imgAlt: "...",
+          imgAlt: "logo",
         }}
       />
       <div className="main-content" ref={mainContentRef}>
-        <Container className="my-4" fluid>
+        <Container className="my-4">
           <Row>
             <Col>{props.children}</Col>
           </Row>

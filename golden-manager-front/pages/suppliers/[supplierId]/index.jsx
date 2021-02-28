@@ -34,16 +34,36 @@ const Index = () => {
         ]}
         bottomSection={[
           {
-            label: "totale achats (DA)",
-            value: data?.totalSupplies,
+            label: "totale ventes (da)",
+            value: data?.totalMoneySupplied,
           },
           {
             label: "totale des versements or (g)",
-            value: data?.totalPayedGold,
+            value: data?.totalGoldSupplied,
           },
           {
-            label: "totale des versements argents (DA)",
-            value: data?.totalPayedMoney,
+            label: "totale des versements argents (da)",
+            value: data?.totalSuppliedGold,
+          },
+          {
+            label: "totale des versements or (g)",
+            value: data?.totalSuppliedMoney,
+          },
+          {
+            label: "credit argent (da)",
+            value: data?.totalMoneyCredit,
+          },
+          {
+            label: "credit or (g)",
+            value: data?.totalGoldCredit,
+          },
+          {
+            label: "ecart or (g)",
+            value: data?.totalGap,
+          },
+          {
+            label: "credit or avec ecart (g)",
+            value: data ? data.totalGoldCredit + data.totalGap : "",
           },
         ]}
       />
@@ -58,7 +78,8 @@ const Index = () => {
               itemBaseRoutePath: `/suppliers/${supplierId}/supplies`,
               metaData: [
                 { label: "date", propName: "date" },
-                { label: "totale (da)", propName: "total" },
+                { label: "totale argent (da)", propName: "totalMoney" },
+                { label: "totale or (da)", propName: "totalGrams" },
               ],
               data: data?.supplies,
             },

@@ -1,11 +1,7 @@
-/*eslint-disable*/
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-// nodejs library to set properties for components
-import { PropTypes } from "prop-types";
 
-// reactstrap components
 import {
   Collapse,
   Form,
@@ -148,11 +144,11 @@ function Sidebar(props) {
           <hr className="my-3" />
           {/* Navigation */}
           <Nav navbar>
+            <SideBarLink name="articles" route="/articles" />
             <SideBarLink name="clients" route="/customers" />
             <SideBarLink name="fournisseurs" route="/suppliers" />
-            <SideBarLink name="articles" route="/articles" />
-            <SideBarLink name="charges" route="/expenses" />
             <SideBarLink name="achats anonymes" route="/anonymous-purchases" />
+            <SideBarLink name="charges" route="/expenses" />
           </Nav>
         </Collapse>
 
@@ -161,26 +157,5 @@ function Sidebar(props) {
     </Navbar>
   );
 }
-
-Sidebar.defaultProps = {
-  routes: [{}],
-};
-
-Sidebar.propTypes = {
-  // links that will be displayed inside the component
-  routes: PropTypes.arrayOf(PropTypes.object),
-  logo: PropTypes.shape({
-    // innerLink is for links that will direct the user within the app
-    // it will be rendered as <Link href="...">...</Link> tag
-    innerLink: PropTypes.string,
-    // outterLink is for links that will direct the user outside the app
-    // it will be rendered as simple <a href="...">...</a> tag
-    outterLink: PropTypes.string,
-    // the image src of the logo
-    imgSrc: PropTypes.string.isRequired,
-    // the alt for the img
-    imgAlt: PropTypes.string.isRequired,
-  }),
-};
 
 export default Sidebar;

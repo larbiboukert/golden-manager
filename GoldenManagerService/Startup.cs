@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GoldenManagerService
@@ -28,7 +29,11 @@ namespace GoldenManagerService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                });
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseNpgsql("name=ConnectionStrings:DefaultConnection"));
             services.AddCors(options =>

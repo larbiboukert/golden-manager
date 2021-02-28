@@ -12,9 +12,14 @@ namespace GoldenManagerService.Models
         public string City { get; set; }
         public string State { get; set; }
         public List<Sale> Sales { get; set; }
-        public decimal? TotalSales => Sales?.Sum(s => s.Total);
+        public decimal? TotalMoneySold => Sales?.Sum(s => s.TotalMoney);
+        public float? TotalGoldSold => Sales?.Sum(s => s.TotalGrams);
         public List<CustomerPayment> CustomerPayments { get; set; }
-        public float? TotalPayedGold => CustomerPayments?.Sum(cp => cp.Grams);
         public decimal? TotalPayedMoney => CustomerPayments?.Sum(cp => cp.Money);
+        public float? TotalPayedGold => CustomerPayments?.Sum(cp => cp.Grams);
+        public decimal? TotalMoneyCredit => TotalMoneySold - TotalPayedMoney;
+        public float? TotalGoldCredit => TotalGoldSold - TotalPayedGold;
+        public List<LaboratoryReport> LaboratoryReports { get; set; }
+        public float? TotalGap => LaboratoryReports?.Sum(r => r.Gap);
     }
 }

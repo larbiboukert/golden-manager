@@ -33,6 +33,7 @@
     "react-datetime": "2.16.3",
     "react-dom": "16.13.1",
     "react-google-maps": "9.4.5",
+    "react-to-pdf": "^0.0.13",
     "reactstrap": "8.5.1",
     "swr": "^0.4.1",
     "webpack": "4.44.1"

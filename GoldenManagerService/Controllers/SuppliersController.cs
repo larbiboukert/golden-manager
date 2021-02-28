@@ -37,6 +37,7 @@ namespace GoldenManagerService.Controllers
                     .ThenInclude(s => s.Products)
                         .ThenInclude(p => p.Article)
                 .Include(s => s.SupplierPayments)
+                    .ThenInclude(p => p.LaboratoryReports)
                 .FirstOrDefaultAsync(c => c.ID == id);
 
             if (supplier == null)
