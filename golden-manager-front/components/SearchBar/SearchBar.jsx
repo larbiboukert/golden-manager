@@ -53,15 +53,6 @@ const SearchBar = ({ data, setFilteredList, dateFilter }) => {
         </InputGroup>
       ) : (
         <div className="d-flex align-items-end">
-          <Button
-            style={{ padding: "0.75rem" }}
-            onClick={() => {
-              setStartDate("");
-              setEndDate("");
-            }}
-          >
-            <i className="fas fa-retweet" />
-          </Button>
           <div className="pr-4">
             <label className="form-control-label pr-2 uppercase">
               {"date debut:"}
@@ -82,6 +73,15 @@ const SearchBar = ({ data, setFilteredList, dateFilter }) => {
               onChange={(e) => setEndDate(e.target.value)}
             ></Input>
           </div>
+          <Button
+            style={{ padding: "0.75rem" }}
+            onClick={() => {
+              setStartDate("");
+              setEndDate("");
+            }}
+          >
+            <i className="fas fa-retweet" />
+          </Button>
         </div>
       )}
     </>

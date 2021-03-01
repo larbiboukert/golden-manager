@@ -17,13 +17,18 @@ const New = () => {
             value: new Date().toISOString().split("T")[0],
           },
           {
-            label: "argent (DA)",
-            input: "money",
-            value: 0,
+            label: "titre",
+            input: "fineness",
+            value: 750,
           },
           {
             label: "qantite or (G)",
             input: "grams",
+            value: 0,
+          },
+          {
+            label: "argent (DA)",
+            input: "money",
             value: 0,
           },
         ]}

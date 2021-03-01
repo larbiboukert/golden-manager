@@ -23,7 +23,7 @@ const Index = () => {
                 { label: "Famille", propName: "family" },
                 { label: "Designation", propName: "designation" },
               ],
-              data: data,
+              data: data?.$values,
             },
           },
         ]}

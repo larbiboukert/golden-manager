@@ -32,6 +32,10 @@ const Detail = () => {
             label: "or versee (g)",
             value: data?.grams,
           },
+          {
+            label: "titre",
+            value: data?.fineness,
+          },
         ]}
       />
       <ItemsListTableCard
@@ -39,7 +43,8 @@ const Detail = () => {
         navItemsMetaData={[
           {
             navName: "detail",
-            addItemButtonText: data?.laboratoryReports.length === 0 && "pv",
+            addItemButtonText:
+              data?.laboratoryReports.$values.length === 0 && "pv",
             addItemRoutePath: `/suppliers/${supplierId}/supplier-payments/${supplierPaymentId}/new`,
             table: {
               hideRef: true,
@@ -48,15 +53,15 @@ const Detail = () => {
                   label: "reference client",
                   propName: "customer",
                   subPropName: "reference",
-                  ifNull: "ANONYME"
+                  ifNull: "ANONYME",
                 },
                 { label: "or versee", propName: "payedGold" },
                 { label: "fonte", propName: "melting" },
                 { label: "titre", propName: "fineness" },
-                { label: "net 750", propName: "net750" },
+                { label: "net", propName: "net" },
                 { label: "ecart", propName: "gap" },
               ],
-              data: data?.laboratoryReports,
+              data: data?.laboratoryReports.$values,
             },
           },
         ]}

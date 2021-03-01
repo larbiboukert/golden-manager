@@ -40,6 +40,16 @@ namespace GoldenManagerService.Controllers
             return laboratoryReport;
         }
 
+        // GET: api/LaboratoryReports/anonymous
+        [HttpGet("anonymous")]
+        public async Task<ActionResult<IEnumerable<LaboratoryReport>>> GetAnonymousLaboratoryReports()
+        {
+            return await _context.LaboratoryReports
+                .Include(r => r.SupplierPayment)
+                .Where(r => r.Customer == null)
+                .ToListAsync();
+        }
+
         // PUT: api/LaboratoryReports/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

@@ -8,8 +8,8 @@ namespace GoldenManagerService.Models
         public string Reference => $"ACHAT_ANONYME_{Fineness}_{Date:dd_MM_yyyy}";
         public DateTime Date { get; set; }
         public int Fineness { get; set; }
-        public decimal Money { get; set; }
+        public decimal UnitPrice { get; set; }
         public float Grams { get; set; }
-        public string Designation { get; set; }
+        public decimal Total => UnitPrice * (decimal)Grams;
     }
 }

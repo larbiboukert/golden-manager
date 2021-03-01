@@ -14,7 +14,7 @@ import {
 import { useRouter } from "next/router";
 import SearchBar from "../SearchBar/SearchBar";
 
-const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
+const ItemsListTableCard = ({ navItemsMetaData, error }) => {
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState(navItemsMetaData[0].navName);
@@ -30,7 +30,6 @@ const ItemsListTableCard = ({ headerTitle, navItemsMetaData, error }) => {
     <>
       <Card className="shadow">
         <CardHeader className="border-0 d-flex justify-content-between align-items-center">
-          <h1 className="uppercase">{headerTitle}</h1>
           <SearchBar
             data={
               navItemsMetaData.find((md) => md.navName === activeTab).table.data

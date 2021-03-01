@@ -81,7 +81,7 @@ const Index = () => {
                 { label: "totale argent (da)", propName: "totalMoney" },
                 { label: "totale or (da)", propName: "totalGrams" },
               ],
-              data: data?.supplies,
+              data: data?.supplies.$values,
             },
           },
           {
@@ -94,8 +94,9 @@ const Index = () => {
                 { label: "date", propName: "date" },
                 { label: "argent versee (da)", propName: "money" },
                 { label: "or versee (g)", propName: "grams" },
+                { label: "titre", propName: "fineness" },
               ],
-              data: data?.supplierPayments,
+              data: data?.supplierPayments.$values,
             },
           },
         ]}

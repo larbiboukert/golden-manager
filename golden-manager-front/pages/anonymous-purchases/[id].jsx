@@ -27,14 +27,14 @@ const Detail = () => {
             value: data?.grams,
           },
           {
-            label: "montant (da)",
-            value: data?.money,
+            label: "prix unitaire (da)",
+            value: data?.unitPrice,
           },
         ]}
         bottomSection={[
           {
-            label: "designation",
-            value: data?.designation,
+            label: "totale (da)",
+            value: data?.total,
           },
         ]}
         error={error}

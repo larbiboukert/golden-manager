@@ -33,7 +33,7 @@ namespace GoldenManagerService.Controllers
             var totalGramsSuppliersPayments = _context.SupplierPayments.Sum(p => p.Grams);
             var totalMoneySupplied = _context.Supplies.Include(s => s.Products).ToList().Sum(s => s.TotalMoney);
             var totalGoldSupplied = _context.Supplies.Include(s => s.Products).ToList().Sum(s => s.TotalGrams);
-            var totalMoneyAnonymousPurchses = _context.AnonymousPurchases.Sum(p => p.Money);
+            var totalMoneyAnonymousPurchses = _context.AnonymousPurchases.Sum(p => p.Total);
             var totalGramsAnonymousPurchses = _context.AnonymousPurchases.Sum(p => p.Grams);
             var totalExpenses = _context.Expenses.Sum(e => e.Money);
 

@@ -21,7 +21,7 @@ const New = () => {
           {
             label: "designation",
             input: "designation",
-            value: 0,
+            value: "",
           },
         ]}
         postRoute="/api/Expenses"

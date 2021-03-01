@@ -5,10 +5,16 @@ import {
   CardBody,
   CardHeader,
   FormGroup,
-  Label,
+  div,
 } from "reactstrap";
 
-const ItemDetailCard = ({ reference, midSection, bottomSection, error }) => {
+const ItemDetailCard = ({
+  reference,
+  midSection,
+  bottomSection,
+  error,
+  handlePrint,
+}) => {
   return (
     <>
       <Card className="shadow">
@@ -18,29 +24,31 @@ const ItemDetailCard = ({ reference, midSection, bottomSection, error }) => {
           <>
             <CardHeader className="d-flex">
               {reference && (
-                <div>
-                  <Label className="pr-4 uppercase">Reference:</Label>
-                  <Label>{reference}</Label>
+                <div className="d-flex">
+                  <div className="pr-4 uppercase">Reference:</div>
+                  <div>{reference}</div>
                 </div>
               )}
-              <Button className="uppercase ml-auto">
-                <i className="fas fa-print mr-2" />
-                {"imprimer"}
-              </Button>
+              {handlePrint && (
+                <Button className="uppercase ml-auto" onClick={handlePrint}>
+                  <i className="fas fa-print mr-2" />
+                  {"imprimer"}
+                </Button>
+              )}
             </CardHeader>
             <CardBody>
               {midSection.map((data, key) => (
-                <FormGroup key={key}>
-                  <Label className="pr-4 uppercase">{data.label}:</Label>
-                  <Label>{data.value || 0}</Label>
-                </FormGroup>
+                <div className="d-flex" key={key}>
+                  <div className="pr-4 uppercase">{data.label}:</div>
+                  <div>{data.value || 0}</div>
+                </div>
               ))}
-              <hr />
+              <div style={{border: "1px solid gray"}} />
               {bottomSection.map((data, key) => (
-                <FormGroup key={key}>
-                  <Label className="pr-4 uppercase">{data.label}:</Label>
-                  <Label>{data.value || 0}</Label>
-                </FormGroup>
+                <div className="d-flex" key={key}>
+                  <div className="pr-4 uppercase">{data.label}:</div>
+                  <div>{data.value || 0}</div>
+                </div>
               ))}
             </CardBody>
           </>

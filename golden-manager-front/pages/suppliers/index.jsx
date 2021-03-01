@@ -22,7 +22,7 @@ const Index = () => {
                 { label: "Ville", propName: "city" },
                 { label: "Willaya", propName: "state" },
               ],
-              data: data,
+              data: data?.$values,
             },
           },
         ]}

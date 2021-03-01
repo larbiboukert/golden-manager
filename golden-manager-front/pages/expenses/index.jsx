@@ -5,7 +5,6 @@ import ItemsListTableCard from "../../components/ItemsListTableCard/ItemsListTab
 
 const Index = () => {
   const { data, error } = useSWR("/api/Expenses", fetcher);
-
   return (
     <>
       <ItemsListTableCard
@@ -19,10 +18,10 @@ const Index = () => {
               itemBaseRoutePath: "/expenses",
               metaData: [
                 { label: "date", propName: "date" },
-                { label: "designation", propName: "designation" },
                 { label: "montant (DA)", propName: "money" },
+                { label: "designation", propName: "designation" },
               ],
-              data: data,
+              data: data?.$values,
             },
           },
         ]}

@@ -63,7 +63,7 @@ const New = () => {
                       <h5 className="mx-2 mb-0">
                         {item.customer === null
                           ? "ANONYME"
-                          : selectInputItems.find(
+                          : selectInputItems.$values.find(
                               (selectInputItem) =>
                                 selectInputItem.id == item.customer.id
                             ).reference}
@@ -105,7 +105,7 @@ const New = () => {
                   ) : (
                     <>
                       <option value={null}>{"ANONYME"}</option>
-                      {selectInputItems.map((selectInputItem) => (
+                      {selectInputItems.$values.map((selectInputItem) => (
                         <option
                           key={selectInputItem.id}
                           value={selectInputItem.id}

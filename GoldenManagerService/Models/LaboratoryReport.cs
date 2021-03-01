@@ -6,8 +6,9 @@
         public float PayedGold { get; set; }
         public float Melting { get; set; }
         public int Fineness { get; set; }
-        public float Net750 => (PayedGold - Melting) * Fineness / 750;
-        public float Gap => PayedGold - Net750;
+        public float? Net => (PayedGold - Melting) * Fineness / SupplierPayment.Fineness;
+        public float? Gap => PayedGold - Net;
         public Customer Customer { get; set; }
+        public SupplierPayment SupplierPayment { get; set; }
     }
 }

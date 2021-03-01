@@ -91,6 +91,7 @@ const Index = () => {
             table: {
               metaData: [
                 { label: "date", propName: "date" },
+                { label: "titre", propName: "fineness" },
                 { label: "argent versee (da)", propName: "money" },
                 { label: "or versee (g)", propName: "grams" },
               ],

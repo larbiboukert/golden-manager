@@ -9,5 +9,6 @@ namespace GoldenManagerService.Models
         public DateTime Date { get; set; }
         public decimal Money { get; set; }
         public float Grams { get; set; }
+        public int Fineness { get; set; }
     }
 }

@@ -16,7 +16,7 @@ const New = () => {
           {
             label: "titre",
             input: "fineness",
-            value: 0,
+            value: 750,
           },
           {
             label: "quantite (g)",
@@ -24,13 +24,8 @@ const New = () => {
             value: 0,
           },
           {
-            label: "montant (DA)",
-            input: "money",
-            value: 0,
-          },
-          {
-            label: "designation",
-            input: "designation",
+            label: "prix unitaire (DA)",
+            input: "unitPrice",
             value: 0,
           },
         ]}
