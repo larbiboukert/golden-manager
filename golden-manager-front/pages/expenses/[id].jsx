@@ -2,7 +2,7 @@ import React from "react";
 import useSWR from "swr";
 import { fetcher } from "../../utils/api";
 import { useRouter } from "next/router";
-import ItemDetailCard from "../../components/ItemDetailCard/ItemDetailCard";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 const Detail = () => {
   const router = useRouter();
@@ -11,24 +11,28 @@ const Detail = () => {
 
   return (
     <>
-      <ItemDetailCard
-        reference={data?.reference}
-        midSection={[
-          {
-            label: "date",
-            value: data?.date,
-          },
-        ]}
-        bottomSection={[
-          {
-            label: "montant (DA)",
-            value: data?.money,
-          },
-          {
-            label: "designation",
-            value: data?.designation,
-          },
-        ]}
+      <ItemCard
+        headerSection={{
+          reference: data?.reference,
+          sections: [
+            [
+              {
+                label: "date",
+                value: data?.date,
+              },
+            ],
+            [
+              {
+                label: "montant (DA)",
+                value: data?.money,
+              },
+              {
+                label: "designation",
+                value: data?.designation,
+              },
+            ],
+          ],
+        }}
         error={error}
       />
     </>

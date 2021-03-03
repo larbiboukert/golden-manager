@@ -14,68 +14,103 @@ import {
 import { useRouter } from "next/router";
 import SearchBar from "../SearchBar/SearchBar";
 
-const ItemsListTableCard = ({ navItemsMetaData, error }) => {
+const ItemCard = ({ headerSection, navItemsMetaData, error }) => {
+  const { reference, print, sections } = headerSection || {};
+
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState(navItemsMetaData[0].navName);
+  const [activeTab, setActiveTab] = useState(0);
 
-  const [itemsList, setItemsList] = useState(navItemsMetaData[0].table.data);
+  const [itemsList, setItemsList] = useState();
   useEffect(() => {
-    setItemsList(
-      navItemsMetaData.find((md) => md.navName === activeTab).table.data
-    );
+    if (navItemsMetaData)
+      setItemsList(
+        navItemsMetaData.find((md) => md.navId === activeTab).table.data
+      );
   }, [navItemsMetaData, activeTab]);
 
-  return (
+  return error ? (
+    <div>{"Error! refrech the page.."}</div>
+  ) : (
     <>
       <Card className="shadow">
-        <CardHeader className="border-0 d-flex justify-content-between align-items-center">
-          <SearchBar
-            data={
-              navItemsMetaData.find((md) => md.navName === activeTab).table.data
-            }
-            setFilteredList={setItemsList}
-            dateFilter={navItemsMetaData
-              .find((md) => md.navName === activeTab)
-              .table.metaData.some((md) => md.label.toLowerCase() === "date")}
-          />
-          <div className="d-flex ml-4">
-            {navItemsMetaData.map(
-              (md, key) =>
-                md.addItemButtonText && (
-                  <Button
-                    key={key}
-                    className="uppercase"
-                    onClick={() => router.push(md.addItemRoutePath)}
-                  >
-                    <i className="fas fa-plus mr-2" />
-                    {md.addItemButtonText}
-                  </Button>
-                )
-            )}
-          </div>
-        </CardHeader>
-        {error ? (
-          "Echec, essayer de rafrechir la page.."
-        ) : (
+        {headerSection && (
+          <CardHeader>
+            <div className="d-flex">
+              {reference && (
+                <div className="d-flex">
+                  <div className="pr-4 uppercase">Reference:</div>
+                  <div>{reference}</div>
+                </div>
+              )}
+              {print && (
+                <Button className="uppercase ml-auto">
+                  <i className="fas fa-print mr-2" />
+                  {"imprimer"}
+                </Button>
+              )}
+            </div>
+            {sections.map((section, key) => (
+              <div key={key}>
+                <div style={{ border: "1px solid gray" }} />
+                {section.map((data, key) => (
+                  <div className="d-flex" key={key}>
+                    <div className="pr-4 uppercase">{data.label}:</div>
+                    <div>{data.value || 0}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </CardHeader>
+        )}
+        {navItemsMetaData && (
           <CardBody>
-            <Nav tabs className="flex-grow-1">
+            <div className="border-0 d-flex justify-content-between align-items-center">
+              <SearchBar
+                data={
+                  navItemsMetaData.find((md) => md.navId === activeTab).table
+                    .data
+                }
+                setFilteredList={setItemsList}
+                dateFilter={navItemsMetaData
+                  .find((md) => md.navId === activeTab)
+                  .table.metaData.some(
+                    (md) => md.label.toLowerCase() === "date"
+                  )}
+              />
+              <div className="d-flex ml-4">
+                {navItemsMetaData.map(
+                  (md, key) =>
+                    md.addItemButtonText && (
+                      <Button
+                        key={key}
+                        className="uppercase"
+                        onClick={() => router.push(md.addItemRoutePath)}
+                      >
+                        <i className="fas fa-plus mr-2" />
+                        {md.addItemButtonText}
+                      </Button>
+                    )
+                )}
+              </div>
+            </div>
+            <Nav tabs className="flex-grow-1 mt-2">
               {navItemsMetaData.map((md, key) => (
                 <NavItem key={key}>
                   <NavLink
                     className={`uppercase${
-                      activeTab === md.navName && " active"
+                      activeTab === md.navId && " active"
                     }`}
-                    onClick={() => setActiveTab(md.navName)}
+                    onClick={() => setActiveTab(md.navId)}
                   >
-                    {md.navName}
+                    {md.navTitle}
                   </NavLink>
                 </NavItem>
               ))}
             </Nav>
             <TabContent activeTab={activeTab}>
               {navItemsMetaData.map((md, key) => (
-                <TabPane key={key} tabId={md.navName}>
+                <TabPane key={key} tabId={md.navId}>
                   <Table className="align-items-center table-flush" responsive>
                     <thead className="thead-light">
                       <tr>
@@ -139,4 +174,4 @@ const ItemsListTableCard = ({ navItemsMetaData, error }) => {
   );
 };
 
-export default ItemsListTableCard;
+export default ItemCard;

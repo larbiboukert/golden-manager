@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
-import ItemDetailCard from "../../../../../components/ItemDetailCard/ItemDetailCard";
-import ItemsListTableCard from "../../../../../components/ItemsListTableCard/ItemsListTableCard";
+import ItemCard from "../../../../../components/ItemCard/ItemCard";
 import { fetcher } from "../../../../../utils/api";
 
 const Detail = () => {
@@ -15,34 +14,36 @@ const Detail = () => {
 
   return (
     <>
-      <ItemDetailCard
-        reference={data?.reference}
-        midSection={[
-          {
-            label: "date",
-            value: data?.date,
-          },
-        ]}
-        bottomSection={[
-          {
-            label: "argent versee (DA)",
-            value: data?.money,
-          },
-          {
-            label: "or versee (g)",
-            value: data?.grams,
-          },
-          {
-            label: "titre",
-            value: data?.fineness,
-          },
-        ]}
-      />
-      <ItemsListTableCard
-        headerTitle={"pv"}
+      <ItemCard
+        headerSection={{
+          reference: data?.reference,
+          sections: [
+            [
+              {
+                label: "date",
+                value: data?.date,
+              },
+            ],
+            [
+              {
+                label: "argent versee (DA)",
+                value: data?.money,
+              },
+              {
+                label: "or versee (g)",
+                value: data?.grams,
+              },
+              {
+                label: "titre",
+                value: data?.fineness,
+              },
+            ],
+          ],
+        }}
         navItemsMetaData={[
           {
-            navName: "detail",
+            navId: 0,
+            navTitle: "detail",
             addItemButtonText:
               data?.laboratoryReports.$values.length === 0 && "pv",
             addItemRoutePath: `/suppliers/${supplierId}/supplier-payments/${supplierPaymentId}/new`,

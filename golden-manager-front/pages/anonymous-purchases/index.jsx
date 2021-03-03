@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "../../utils/api";
-import ItemsListTableCard from "../../components/ItemsListTableCard/ItemsListTableCard";
-import ItemDetailCard from "../../components/ItemDetailCard/ItemDetailCard";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 const Index = () => {
   const { data: anonymousPurchases, error1 } = useSWR(
@@ -43,38 +42,40 @@ const Index = () => {
 
   return (
     <>
-      <ItemDetailCard
-        midSection={[
-          {
-            label: "quantite totale achetee (g)",
-            value: totalGrams,
-          },
-          {
-            label: "argent totale verse (da)",
-            value: totalMoney,
-          },
-          {
-            label: "totale des moyennes ponderees",
-            value: median.toFixed(2),
-          },
-        ]}
-        bottomSection={[
-          {
-            label: "totale des ecarts",
-            value: totalGap,
-          },
-          {
-            label: "quantite totale achetee avec ecart (g)",
-            value: totalGrams - totalGap,
-          },
-        ]}
-        error={error1 || error2}
-        handlePrint={() => {}}
-      />
-      <ItemsListTableCard
+      <ItemCard
+        headerSection={{
+          print: true,
+          sections: [
+            [
+              {
+                label: "quantite totale achetee (g)",
+                value: totalGrams,
+              },
+              {
+                label: "argent totale verse (da)",
+                value: totalMoney,
+              },
+              {
+                label: "totale des moyennes ponderees",
+                value: median.toFixed(2),
+              },
+            ],
+            [
+              {
+                label: "totale des ecarts",
+                value: totalGap,
+              },
+              {
+                label: "quantite totale achetee avec ecart (g)",
+                value: totalGrams - totalGap,
+              },
+            ],
+          ],
+        }}
         navItemsMetaData={[
           {
-            navName: "achats anomymes",
+            navId: 0,
+            navTitle: "achats anomymes",
             addItemButtonText: "achat anonyme",
             addItemRoutePath: `/anonymous-purchases/new`,
             table: {
@@ -90,7 +91,8 @@ const Index = () => {
             },
           },
           {
-            navName: "versements anomymes",
+            navId: 1,
+            navTitle: "versements anomymes",
             table: {
               hideRef: true,
               metaData: [

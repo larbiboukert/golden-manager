@@ -2,8 +2,7 @@ import React from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { fetcher } from "../../../utils/api";
-import ItemsListTableCard from "../../../components/ItemsListTableCard/ItemsListTableCard";
-import ItemDetailCard from "../../../components/ItemDetailCard/ItemDetailCard";
+import ItemCard from "../../../components/ItemCard/ItemCard";
 
 const Index = () => {
   const router = useRouter();
@@ -12,66 +11,68 @@ const Index = () => {
 
   return (
     <>
-      <ItemDetailCard
-        reference={data?.reference}
-        midSection={[
-          {
-            label: "nom",
-            value: data?.name,
-          },
-          {
-            label: "telephone",
-            value: data?.phoneNumber,
-          },
-          {
-            label: "ville",
-            value: data?.city,
-          },
-          {
-            label: "willaya",
-            value: data?.state,
-          },
-        ]}
-        bottomSection={[
-          {
-            label: "totale ventes argent (da)",
-            value: data?.totalMoneySold,
-          },
-          {
-            label: "totale ventes or (g)",
-            value: data?.totalGoldSold,
-          },
-          {
-            label: "totale des versements argents (DA)",
-            value: data?.totalPayedMoney,
-          },
-          {
-            label: "totale des versements or (g)",
-            value: data?.totalPayedGold,
-          },
-          {
-            label: "credit argent (da)",
-            value: data?.totalMoneyCredit,
-          },
-          {
-            label: "credit or (g)",
-            value: data?.totalGoldCredit,
-          },
-          {
-            label: "ecart or (g)",
-            value: data?.totalGap,
-          },
-          {
-            label: "credit or avec ecart (g)",
-            value: data ? data.totalGoldCredit + data.totalGap : "",
-          },
-        ]}
-      />
-      <ItemsListTableCard
-        headerTitle={"Ventes & versements client"}
+      <ItemCard
+        headerSection={{
+          reference: data?.reference,
+          sections: [
+            [
+              {
+                label: "nom",
+                value: data?.name,
+              },
+              {
+                label: "telephone",
+                value: data?.phoneNumber,
+              },
+              {
+                label: "ville",
+                value: data?.city,
+              },
+              {
+                label: "willaya",
+                value: data?.state,
+              },
+            ],
+            [
+              {
+                label: "totale ventes argent (da)",
+                value: data?.totalMoneySold,
+              },
+              {
+                label: "totale ventes or (g)",
+                value: data?.totalGoldSold,
+              },
+              {
+                label: "totale des versements argents (DA)",
+                value: data?.totalPayedMoney,
+              },
+              {
+                label: "totale des versements or (g)",
+                value: data?.totalPayedGold,
+              },
+              {
+                label: "credit argent (da)",
+                value: data?.totalMoneyCredit,
+              },
+              {
+                label: "credit or (g)",
+                value: data?.totalGoldCredit,
+              },
+              {
+                label: "ecart or (g)",
+                value: data?.totalGap,
+              },
+              {
+                label: "credit or avec ecart (g)",
+                value: data ? data.totalGoldCredit + data.totalGap : "",
+              },
+            ],
+          ],
+        }}
         navItemsMetaData={[
           {
-            navName: "ventes",
+            navId: 0,
+            navTitle: "ventes",
             addItemButtonText: "vente",
             addItemRoutePath: `/customers/${customerId}/sales/new`,
             table: {
@@ -85,7 +86,8 @@ const Index = () => {
             },
           },
           {
-            navName: "versements",
+            navId: 1,
+            navTitle: "versements",
             addItemButtonText: "versement",
             addItemRoutePath: `/customers/${customerId}/new-customer-payment`,
             table: {

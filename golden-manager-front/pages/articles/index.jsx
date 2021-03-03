@@ -1,18 +1,19 @@
 import React from "react";
 import useSWR from "swr";
 import { fetcher } from "../../utils/api";
-import ItemsListTableCard from "../../components/ItemsListTableCard/ItemsListTableCard";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 const Index = () => {
   const { data, error } = useSWR("/api/Articles", fetcher);
 
   return (
     <>
-      <ItemsListTableCard
+      <ItemCard
         headerTitle={"Liste des articles"}
         navItemsMetaData={[
           {
-            navName: "articles",
+            navId: 0,
+            navTitle: "articles",
             addItemButtonText: "article",
             addItemRoutePath: `/articles/new`,
             table: {

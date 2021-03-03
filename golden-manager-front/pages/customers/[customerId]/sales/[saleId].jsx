@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import useSWR from "swr";
-import ItemDetailCard from "../../../../components/ItemDetailCard/ItemDetailCard";
-import ItemsListTableCard from "../../../../components/ItemsListTableCard/ItemsListTableCard";
+import ItemCard from "../../../../components/ItemCard/ItemCard";
 import { fetcher } from "../../../../utils/api";
 
 const Detail = () => {
@@ -12,26 +11,32 @@ const Detail = () => {
 
   return (
     <>
-      <ItemDetailCard
-        reference={data?.reference}
-        midSection={[
-          {
-            label: "date",
-            value: data?.date,
-          },
-        ]}
-        bottomSection={[
-          {
-            label: "totale (DA)",
-            value: data?.total,
-          },
-        ]}
-      />
-      <ItemsListTableCard
-        headerTitle={"detail"}
+      <ItemCard
+        headerSection={{
+          reference: data?.reference,
+          sections: [
+            [
+              {
+                label: "date",
+                value: data?.date,
+              },
+            ],
+            [
+              {
+                label: "quantite totale (g)",
+                value: data?.totalGrams,
+              },
+              {
+                label: "somme totale (da)",
+                value: data?.totalMoney,
+              },
+            ],
+          ],
+        }}
         navItemsMetaData={[
           {
-            navName: "articles",
+            navId: 0,
+            navTitle: "articles",
             table: {
               metaData: [
                 {
@@ -42,7 +47,7 @@ const Detail = () => {
                 { label: "quantite (g)", propName: "grams" },
                 { label: "prix unitaire (da)", propName: "unitPrice" },
               ],
-              data: data?.products,
+              data: data?.products.$values,
             },
           },
         ]}

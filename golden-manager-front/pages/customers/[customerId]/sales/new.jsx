@@ -29,7 +29,7 @@ const New = () => {
   const [newProduct, setNewProduct] = useState();
   useEffect(() => {
     setNewProduct({
-      article: { id: articles ? articles[0].id : "" },
+      article: { id: articles ? articles.$values[0].id : "" },
       grams: 0,
       unitPrice: 0,
     });
@@ -74,7 +74,7 @@ const New = () => {
                       <small>Article:</small>
                       <h5 className="mx-2 mb-0">
                         {
-                          articles.find(
+                          articles.$values.find(
                             (article) => article.id == product.article.id
                           ).reference
                         }
@@ -110,10 +110,10 @@ const New = () => {
                     <option>Erreur! rafraichir la page</option>
                   ) : !articles ? (
                     <option>Loading..</option>
-                  ) : articles.length === 0 ? (
+                  ) : articles.$values.length === 0 ? (
                     <option>pas d'articles!</option>
                   ) : (
-                    articles.map((article) => (
+                    articles.$values.map((article) => (
                       <option key={article.id} value={article.id}>
                         {article.reference}
                       </option>
