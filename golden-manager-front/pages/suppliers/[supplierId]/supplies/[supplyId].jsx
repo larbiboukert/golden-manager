@@ -13,6 +13,7 @@ const Detail = () => {
     <>
       <ItemCard
         headerSection={{
+          print: true,
           reference: data?.reference,
           sections: [
             [
@@ -23,8 +24,12 @@ const Detail = () => {
             ],
             [
               {
-                label: "totale (DA)",
-                value: data?.total,
+                label: "quantite totale (g)",
+                value: data?.totalGrams,
+              },
+              {
+                label: "somme totale (da)",
+                value: data?.totalMoney,
               },
             ],
           ],

@@ -18,7 +18,6 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Footer from "./Footer/Footer";
 
 function Sidebar(props) {
   // used for checking current route
@@ -151,8 +150,6 @@ function Sidebar(props) {
             <SideBarLink name="charges" route="/expenses" />
           </Nav>
         </Collapse>
-
-        <Footer />
       </Container>
     </Navbar>
   );

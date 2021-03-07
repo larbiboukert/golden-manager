@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -13,6 +13,8 @@ import {
 } from "reactstrap";
 import { useRouter } from "next/router";
 import SearchBar from "../SearchBar/SearchBar";
+import dynamic from "next/dynamic";
+const ReactToPdf = dynamic(() => import("react-to-pdf"), { ssr: false });
 
 const ItemCard = ({ headerSection, navItemsMetaData, error }) => {
   const { reference, print, sections } = headerSection || {};
@@ -29,6 +31,8 @@ const ItemCard = ({ headerSection, navItemsMetaData, error }) => {
       );
   }, [navItemsMetaData, activeTab]);
 
+  const invoiceRef = useRef(null);
+
   return error ? (
     <div>{"Error! refrech the page.."}</div>
   ) : (
@@ -44,10 +48,27 @@ const ItemCard = ({ headerSection, navItemsMetaData, error }) => {
                 </div>
               )}
               {print && (
-                <Button className="uppercase ml-auto">
-                  <i className="fas fa-print mr-2" />
-                  {"imprimer"}
-                </Button>
+                <ReactToPdf
+                  targetRef={invoiceRef}
+                  filename="pv.pdf"
+                  onComplete={() =>
+                    (document.getElementById("invoice").style.display = "none")
+                  }
+                >
+                  {({ toPdf }) => (
+                    <Button
+                      className="uppercase ml-auto"
+                      onClick={() => {
+                        document.getElementById("invoice").style.display =
+                          "block";
+                        toPdf();
+                      }}
+                    >
+                      <i className="fas fa-print mr-2" />
+                      {"imprimer"}
+                    </Button>
+                  )}
+                </ReactToPdf>
               )}
             </div>
             {sections.map((section, key) => (
@@ -170,6 +191,90 @@ const ItemCard = ({ headerSection, navItemsMetaData, error }) => {
           </CardBody>
         )}
       </Card>
+
+      <div
+        ref={invoiceRef}
+        id="invoice"
+        className="p-4"
+        style={{ width: "210mm", height: "297mm", display: "none" }}
+      >
+        {headerSection && (
+          <div className="mb-4">
+            {reference && (
+              <div className="d-flex">
+                <div className="pr-4 uppercase">Reference:</div>
+                <div>{reference}</div>
+              </div>
+            )}
+            {sections.map((section, key) => (
+              <div key={key}>
+                <div style={{ border: "1px solid gray" }} />
+                {section.map((data, key) => (
+                  <div className="d-flex" key={key}>
+                    <div className="pr-4 uppercase">{data.label}:</div>
+                    <div>{data.value || 0}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+        {navItemsMetaData && (
+          <Table className="align-items-center table-flush" responsive>
+            <thead className="thead-light">
+              <tr>
+                {!navItemsMetaData[0].table.hideRef && (
+                  <th scope="col">Reference</th>
+                )}
+                {navItemsMetaData[0].table.metaData.map((col, k) => (
+                  <th key={k} scope="col">
+                    {col.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {!itemsList ? (
+                <tr>
+                  <td>loading...</td>
+                </tr>
+              ) : itemsList.length === 0 ? (
+                <tr>
+                  <td>Vide</td>
+                </tr>
+              ) : (
+                itemsList.map((row) => (
+                  <tr key={row.id}>
+                    {!navItemsMetaData[0].table.hideRef && (
+                      <th
+                        className="nav-item"
+                        scope="row"
+                        onClick={(e) =>
+                          navItemsMetaData[0].table.itemBaseRoutePath &&
+                          router.push(
+                            `${navItemsMetaData[0].table.itemBaseRoutePath}/${row.id}`
+                          )
+                        }
+                      >
+                        <span className="mb-0 text-sm">{row.reference}</span>
+                      </th>
+                    )}
+                    {navItemsMetaData[0].table.metaData.map((col, k) => (
+                      <td key={k} scope="col">
+                        {(!row[col.propName]
+                          ? col.ifNull
+                          : col.subPropName
+                          ? row[col.propName][col.subPropName]
+                          : row[col.propName]) || 0}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </Table>
+        )}
+      </div>
     </>
   );
 };

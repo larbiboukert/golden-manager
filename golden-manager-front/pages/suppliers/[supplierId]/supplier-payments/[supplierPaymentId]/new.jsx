@@ -26,6 +26,7 @@ const New = () => {
   const { data: selectInputItems, error } = useSWR("/api/Customers", fetcher);
 
   const [newItem, setNewItem] = useState();
+  console.log(newItem?.customer);
   useEffect(() => {
     setNewItem({
       customer: null,
@@ -94,7 +95,8 @@ const New = () => {
                   onChange={(e) =>
                     setNewItem({
                       ...newItem,
-                      customer: !e.target.value ? null : { id: e.target.value },
+                      customer:
+                        e.target.value === "" ? null : { id: e.target.value },
                     })
                   }
                 >
@@ -104,7 +106,7 @@ const New = () => {
                     <option>Loading..</option>
                   ) : (
                     <>
-                      <option value={null}>{"ANONYME"}</option>
+                      <option value={""}>{"ANONYME"}</option>
                       {selectInputItems.$values.map((selectInputItem) => (
                         <option
                           key={selectInputItem.id}

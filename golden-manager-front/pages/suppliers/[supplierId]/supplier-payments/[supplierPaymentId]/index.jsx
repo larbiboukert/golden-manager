@@ -16,6 +16,7 @@ const Detail = () => {
     <>
       <ItemCard
         headerSection={{
+          print: true,
           reference: data?.reference,
           sections: [
             [
