@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "components/Sidebar/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 import { Col, Container, Row } from "reactstrap";
 
 function Dashboard(props) {
@@ -12,14 +12,7 @@ function Dashboard(props) {
   }, []);
   return (
     <>
-      <Sidebar
-        {...props}
-        logo={{
-          innerLink: "/",
-          imgSrc: require("assets/img/brand/logo.svg"),
-          imgAlt: "logo",
-        }}
-      />
+      <Sidebar />
       <div className="main-content" ref={mainContentRef}>
         <Container className="my-4">
           <Row>

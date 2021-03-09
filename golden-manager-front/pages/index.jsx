@@ -29,7 +29,7 @@ const dataCard = (title, data, bgClr) => (
   </Card>
 );
 
-export default () => {
+const Index = () => {
   const { data, error } = useSWR("/api/Dashboard", fetcher);
 
   return error ? (
@@ -132,3 +132,5 @@ export default () => {
     </>
   );
 };
+
+export default Index;

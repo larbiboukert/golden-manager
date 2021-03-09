@@ -1,10 +1,10 @@
 import React from "react";
 import Head from "next/head";
 
-import "assets/plugins/nucleo/css/nucleo.css";
+import "../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "assets/scss/dashboard.scss";
-import "assets/css/custom-style.css";
+import "../assets/css/dashboard.css";
+import "../assets/css/custom-style.css";
 import Dashboard from "../layouts/Dashboard";
 import axios from "axios";
 

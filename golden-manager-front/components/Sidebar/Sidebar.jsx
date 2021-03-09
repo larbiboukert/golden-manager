@@ -9,7 +9,6 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  NavbarBrand,
   Navbar,
   NavItem,
   NavLink,
@@ -19,7 +18,7 @@ import {
   Col,
 } from "reactstrap";
 
-function Sidebar(props) {
+function Sidebar() {
   // used for checking current route
   const router = useRouter();
   const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -50,12 +49,6 @@ function Sidebar(props) {
     </NavItem>
   );
 
-  const { logo } = props;
-  let navbarBrand = (
-    <NavbarBrand href="#pablo" className="pt-0">
-      <img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} />
-    </NavbarBrand>
-  );
   return (
     <Navbar
       className="navbar-vertical fixed-left navbar-light bg-white"
@@ -71,35 +64,11 @@ function Sidebar(props) {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        {/* Brand */}
-        {logo && logo.innerLink ? (
-          <Link href={logo.innerLink}>
-            <span>{navbarBrand}</span>
-          </Link>
-        ) : null}
-        {logo && logo.outterLink ? (
-          <a href={logo.innerLink} target="_blank">
-            {navbarBrand}
-          </a>
-        ) : null}
         {/* Collapse */}
         <Collapse navbar isOpen={collapseOpen}>
           {/* Collapse header */}
           <div className="navbar-collapse-header d-md-none">
             <Row>
-              {logo ? (
-                <Col className="collapse-brand" xs="6">
-                  {logo.innerLink ? (
-                    <Link href={logo.innerLink}>
-                      <img alt={logo.imgAlt} src={logo.imgSrc} />
-                    </Link>
-                  ) : (
-                    <a href={logo.outterLink}>
-                      <img alt={logo.imgAlt} src={logo.imgSrc} />
-                    </a>
-                  )}
-                </Col>
-              ) : null}
               <Col className="collapse-close" xs="6">
                 <button
                   className="navbar-toggler"
